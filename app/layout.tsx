@@ -27,8 +27,8 @@ const navItems = [
     iconType: "kanban" as const,
   },
   {
-    href: "/stats",
-    label: "Stats",
+    href: "/statistics",
+    label: "Statistics",
     iconType: "stats" as const,
   },
 ];
