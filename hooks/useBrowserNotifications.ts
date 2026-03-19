@@ -22,11 +22,10 @@ let globalSwRegistration: ServiceWorkerRegistration | null = null;
 const CHECK_INTERVAL = 60000; // Check every 1 minute
 
 /**
- * Hook to setup browser push notifications and periodic checks
- * Shows browser notifications for approaching deadlines
+ * Hook to setup browser push notifications
+ * Listens to deadline signals from usePeriodicDeadlineCheck for synchronized timing
  */
 export const useBrowserNotifications = () => {
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const permissionRef = useRef<NotificationPermission>('default');
   const { tasks } = useTaskStore();
 
@@ -221,9 +220,6 @@ export const useBrowserNotifications = () => {
     // Cleanup
     return () => {
       unsubscribe();
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
     };
   }, [tasks]);
 };
