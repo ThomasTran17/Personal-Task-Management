@@ -5,14 +5,16 @@ import { useTaskStore } from '@/store/taskStore';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { TrendingUp, CheckCircle2, AlertTriangle, ListTodo } from 'lucide-react';
-import { TaskStats, EfficiencyMetrics } from '@/types/statistics';
+import { TaskStats, EfficiencyMetrics, TrendAnalysis } from '@/types/statistics';
 import {
   calculateTaskStats,
   calculateEfficiencyMetrics,
+  calculateTrendAnalysis,
 } from '@/lib/statisticsHelpers';
 import { StatCard } from '@/components/stats/StatCard';
 import { TaskBreakdown } from '@/components/stats/TaskBreakdown';
 import { EfficiencySection } from '@/components/stats/EfficiencySection';
+import { TrendSection } from '@/components/stats/TrendSection';
 
 export default function StatisticsPage() {
   const tasks = useTaskStore((state) => state.tasks);
@@ -28,10 +30,15 @@ export default function StatisticsPage() {
     peakProductivityDay: 'N/A',
     peakProductivityCount: 0,
   });
+  const [trend, setTrend] = useState<TrendAnalysis>({
+    burndownData: [],
+    completionTrendData: [],
+  });
 
   useEffect(() => {
     setStats(calculateTaskStats(tasks));
     setEfficiency(calculateEfficiencyMetrics(tasks));
+    setTrend(calculateTrendAnalysis(tasks));
   }, [tasks]);
 
   return (
@@ -103,12 +110,15 @@ export default function StatisticsPage() {
 
           {/* Efficiency Metrics */}
           {stats.total > 0 && <EfficiencySection metrics={efficiency} />}
+
+          {/* Trend Analysis */}
+          {stats.total > 0 && <TrendSection data={trend} />}
         </div>
 
         {/* Mobile View - Tabbed Layout */}
         <div className="md:hidden">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 border-2 border-black bg-white mb-6">
+            <TabsList className="grid w-full grid-cols-4 border-2 border-black bg-white mb-6">
               <TabsTrigger value="overview" className="text-xs font-bold">
                 Overview
               </TabsTrigger>
@@ -117,6 +127,9 @@ export default function StatisticsPage() {
               </TabsTrigger>
               <TabsTrigger value="efficiency" className="text-xs font-bold">
                 Efficiency
+              </TabsTrigger>
+              <TabsTrigger value="trend" className="text-xs font-bold">
+                Trend
               </TabsTrigger>
             </TabsList>
 
@@ -181,6 +194,19 @@ export default function StatisticsPage() {
                 <Card className="border-2 border-black p-8 text-center">
                   <p className="text-gray-600 font-medium">
                     Complete tasks to see efficiency metrics
+                  </p>
+                </Card>
+              )}
+            </TabsContent>
+
+            {/* Trend Tab */}
+            <TabsContent value="trend" className="space-y-6">
+              {stats.total > 0 ? (
+                <TrendSection data={trend} />
+              ) : (
+                <Card className="border-2 border-black p-8 text-center">
+                  <p className="text-gray-600 font-medium">
+                    Create tasks to see trend analysis
                   </p>
                 </Card>
               )}

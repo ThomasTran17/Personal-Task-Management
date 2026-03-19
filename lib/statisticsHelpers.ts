@@ -1,5 +1,11 @@
 import { Task } from '@/types/task';
-import { TaskStats, EfficiencyMetrics } from '@/types/statistics';
+import {
+  TaskStats,
+  EfficiencyMetrics,
+  TrendAnalysis,
+  BurndownDataPoint,
+  CompletionTrendDataPoint,
+} from '@/types/statistics';
 
 export function calculateTaskStats(tasks: Task[]): TaskStats {
   const now = new Date();
@@ -108,4 +114,170 @@ function calculatePeakProductivityDay(completedTasks: Task[]): {
     peakDay: dayNames[maxDay.day],
     peakCount: maxDay.count,
   };
+}
+
+/**
+ * Calculate trend analysis data for burn down and completion charts
+ */
+export function calculateTrendAnalysis(tasks: Task[]): TrendAnalysis {
+  const burndownData = calculateBurndownData(tasks);
+  const completionTrendData = calculateCompletionTrendData(tasks);
+
+  return {
+    burndownData,
+    completionTrendData,
+  };
+}
+
+/**
+ * Generate burndown data - remaining tasks over time
+ * Shows how many tasks are incomplete at each point in time
+ */
+function calculateBurndownData(tasks: Task[]): BurndownDataPoint[] {
+  if (tasks.length === 0) return [];
+
+  const now = new Date();
+  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+  // Get all unique dates from task creation and completion
+  const dates = new Set<string>();
+  tasks.forEach((task) => {
+    const createdDate = new Date(task.createdAt);
+    if (createdDate >= thirtyDaysAgo) {
+      dates.add(formatDate(createdDate));
+    }
+    if (task.status === 'done') {
+      const updatedDate = new Date(task.updatedAt);
+      if (updatedDate >= thirtyDaysAgo) {
+        dates.add(formatDate(updatedDate));
+      }
+    }
+  });
+
+  // Sort dates and generate burndown points
+  const sortedDates = Array.from(dates).sort();
+
+  return sortedDates.map((date) => {
+    const dateObj = new Date(date);
+    const completed = tasks.filter((task) => {
+      if (task.status !== 'done') return false;
+      const completedDate = new Date(task.updatedAt);
+      return completedDate <= dateObj;
+    }).length;
+
+    const total = tasks.filter((task) => {
+      const createdDate = new Date(task.createdAt);
+      return createdDate <= dateObj;
+    }).length;
+
+    return {
+      date: formatDateShort(dateObj),
+      remaining: Math.max(0, total - completed),
+      completed,
+    };
+  });
+}
+
+/**
+ * Generate 7-day completion trend data
+ * Shows how many tasks were completed each day in the last 7 days
+ */
+function calculateCompletionTrendData(tasks: Task[]): CompletionTrendDataPoint[] {
+  const completedTasks = tasks.filter((task) => task.status === 'done');
+
+  if (completedTasks.length === 0) {
+    return generateEmptySevenDays();
+  }
+
+  const dayData: Record<string, number> = {};
+  const now = new Date();
+  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+  // Initialize last 7 days
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+    const dateStr = formatDate(date);
+    dayData[dateStr] = 0;
+  }
+
+  // Count completed tasks per day
+  completedTasks.forEach((task) => {
+    const completedDate = new Date(task.updatedAt);
+    if (completedDate >= sevenDaysAgo) {
+      const dateStr = formatDate(completedDate);
+      if (dateStr in dayData) {
+        dayData[dateStr]++;
+      }
+    }
+  });
+
+  // Convert to array with day labels
+  const result: CompletionTrendDataPoint[] = [];
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+    const dateStr = formatDate(date);
+    result.push({
+      day: formatDayLabel(date),
+      completed: dayData[dateStr],
+      fullDate: dateStr,
+    });
+  }
+
+  return result;
+}
+
+/**
+ * Generate empty 7-day array when no data available
+ */
+function generateEmptySevenDays(): CompletionTrendDataPoint[] {
+  const result: CompletionTrendDataPoint[] = [];
+  const now = new Date();
+
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+    result.push({
+      day: formatDayLabel(date),
+      completed: 0,
+      fullDate: formatDate(date),
+    });
+  }
+
+  return result;
+}
+
+/**
+ * Format date as YYYY-MM-DD
+ */
+function formatDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Format date as short label (e.g., "Mon", "Tue")
+ */
+function formatDateShort(date: Date): string {
+  const day = date.getDate();
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return `${monthNames[date.getMonth()]} ${day}`;
+}
+
+/**
+ * Format date as day label (e.g., "Mon", "Tue", "Today", "Yesterday")
+ */
+function formatDayLabel(date: Date): string {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const targetDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+  const diffTime = today.getTime() - targetDate.getTime();
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) return 'Today';
+  if (diffDays === 1) return 'Yesterday';
+
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  return dayNames[date.getDay()];
 }

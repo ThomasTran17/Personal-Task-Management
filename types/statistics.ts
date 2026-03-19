@@ -18,3 +18,29 @@ export interface EfficiencyMetrics {
   /** Number of tasks completed on peak day */
   peakProductivityCount: number;
 }
+
+/**
+ * Trend data for burn down chart - daily remaining tasks
+ */
+export interface BurndownDataPoint {
+  date: string;
+  remaining: number;
+  completed: number;
+}
+
+/**
+ * Trend data for 7-day completion chart
+ */
+export interface CompletionTrendDataPoint {
+  day: string;
+  completed: number;
+  fullDate: string;
+}
+
+/**
+ * Trend analysis for visualization
+ */
+export interface TrendAnalysis {
+  burndownData: BurndownDataPoint[];
+  completionTrendData: CompletionTrendDataPoint[];
+}
