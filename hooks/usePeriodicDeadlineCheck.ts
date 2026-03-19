@@ -43,7 +43,7 @@ export const usePeriodicDeadlineCheck = () => {
         if (timeUntil > 0 && timeUntil < ONE_HOUR_MS) {
           if (!globalNotificationState.oneHourNotified.has(task.id)) {
             toast.error(
-              `⚠️ Urgent: "${task.title}" deadline in less than 1 hour!`,
+              `Urgent: "${task.title}" deadline in less than 1 hour!`,
               {
                 description: `Due at ${new Date(task.dueDate).toLocaleTimeString([], {
                   hour: '2-digit',
@@ -66,7 +66,7 @@ export const usePeriodicDeadlineCheck = () => {
         if (timeUntil > ONE_HOUR_MS && timeUntil < ONE_DAY_MS) {
           if (!globalNotificationState.oneDayNotified.has(task.id)) {
             toast.info(
-              `📅 Reminder: "${task.title}" deadline coming up`,
+              `Reminder: "${task.title}" deadline coming up`,
               {
                 description: `Due ${Math.floor(timeUntil / (60 * 60 * 1000))} hours from now`,
                 duration: 4000,
@@ -123,7 +123,7 @@ export const usePeriodicDeadlineCheck = () => {
           !globalNotificationState.oneHourNotified.has(task.id)
         ) {
           toast.error(
-            `⚠️ Urgent: "${task.title}" deadline in less than 1 hour!`,
+            `Urgent: "${task.title}" deadline in less than 1 hour!`,
             {
               description: `Due at ${new Date(task.dueDate).toLocaleTimeString([], {
                 hour: '2-digit',
@@ -141,7 +141,7 @@ export const usePeriodicDeadlineCheck = () => {
           !globalNotificationState.oneDayNotified.has(task.id)
         ) {
           toast.info(
-            `📅 Reminder: "${task.title}" deadline coming up`,
+            `Reminder: "${task.title}" deadline coming up`,
             {
               description: `Due ${Math.floor(timeUntil / (60 * 60 * 1000))} hours from now`,
               duration: 4000,

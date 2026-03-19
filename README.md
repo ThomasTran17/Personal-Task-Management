@@ -12,6 +12,8 @@
 - 📊 **Thống kê** - Tiến độ, hiệu suất, xu hướng, phân loại task
 - 📱 **Responsive** - Mobile, tablet, desktop
 
+![alt text](image.png)
+
 ## 🛠️ Stack Công Nghệ
 
 - **Next.js 16** + **React 19** + **TypeScript**

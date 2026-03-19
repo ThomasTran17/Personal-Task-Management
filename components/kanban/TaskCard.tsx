@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 import {
   getDeadlineStatus,
   getDeadlineStatusClass,
-  formatDate,
+  formatDateTime,
 } from '@/lib/deadlineHelpers';
 import { deadlineUpdateSignal } from '@/lib/deadlineUpdateSignal';
 
@@ -117,7 +117,7 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
                 <Calendar className="size-4 flex-shrink-0" />
               )}
               <span className="flex-1">
-                {isOverdue ? 'Overdue' : isDueSoon ? 'Due Today/Tomorrow' : 'Due'}: {formatDate(task.dueDate)}
+                {isOverdue ? 'Overdue' : isDueSoon ? 'Due Today/Tomorrow' : 'Due'}: {formatDateTime(task.dueDate)}
               </span>
             </div>
 
@@ -125,7 +125,7 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
             {isUrgent && (
               <div className="flex items-center gap-2 px-3 py-2 rounded-base text-xs font-semibold border-2 bg-red-100 border-red-400 text-red-800 animate-pulse">
                 <Clock className="size-4 flex-shrink-0" />
-                <span>⚠️ Deadline in less than 1 hour!</span>
+                <span>Deadline in less than 1 hour!</span>
               </div>
             )}
           </div>

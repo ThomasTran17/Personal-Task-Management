@@ -3,6 +3,7 @@
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Task, TaskStatus } from '@/types/task';
 import TaskCard from '@/components/kanban/TaskCard';
+import EmptyColumnState from '@/components/kanban/EmptyColumnState';
 
 interface KanbanColumnProps {
   status: TaskStatus;
@@ -39,13 +40,17 @@ export default function KanbanColumn({
           isFiltered ? 'grid grid-cols-3 gap-3 auto-rows-max' : 'space-y-3'
         }`}
       >
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            onDelete={onDeleteTask}
-          />
-        ))}
+        {tasks.length === 0 ? (
+          <EmptyColumnState status={status} isFiltered={isFiltered} />
+        ) : (
+          tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              onDelete={onDeleteTask}
+            />
+          ))
+        )}
       </div>
     </div>
   );

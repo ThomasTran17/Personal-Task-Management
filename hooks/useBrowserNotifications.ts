@@ -101,7 +101,7 @@ export const useBrowserNotifications = () => {
 
             // Use Service Worker to show notification if available, otherwise fallback to Notification API
             if (globalSwRegistration) {
-              globalSwRegistration.showNotification(`⚠️ Urgent Deadline!`, {
+              globalSwRegistration.showNotification(`Urgent Deadline!`, {
                 body: `"${task.title}" deadline in less than 1 hour!\nDue at ${dueTime}`,
                 icon: '/favicon.ico',
                 badge: '/favicon.ico',
@@ -109,7 +109,7 @@ export const useBrowserNotifications = () => {
                 requireInteraction: true,
               });
             } else {
-              const notification = new Notification(`⚠️ Urgent Deadline!`, {
+              const notification = new Notification(`Urgent Deadline!`, {
                 body: `"${task.title}" deadline in less than 1 hour!\nDue at ${dueTime}`,
                 icon: '/favicon.ico',
                 badge: '/favicon.ico',
