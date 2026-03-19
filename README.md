@@ -4,7 +4,8 @@
 
 ## ✨ Tính Năng
 
-- ✅ **Thêm/Sửa/Xóa công việc** - Kanban Board với 3 trạng thái (TODO, In Progress, Done)
+- ✅ **Thêm/Sửa/Xóa công việc** 
+- Kanban Board với 3 trạng thái (TODO, In Progress, Done), có kéo - thả
 - 🔍 **Tìm kiếm và lọc** - Theo tên, trạng thái, mức độ ưu tiên
 - 💾 **Lưu localStorage** - Dữ liệu không mất khi tắt trình duyệt
 - ⏰ **Deadline tracking** - Đặt deadline, cảnh báo khi gần hạn
@@ -114,3 +115,19 @@ src/
 
 1. Dữ liệu lưu **localStorage** - xóa cache sẽ mất dữ liệu
 
+## Những điểm mình sẽ cải thiện nếu có thêm thời gian
+- Thêm nội dung mới:
+  - Thêm Internationalization (Tiếng Việt)
+  - Thêm theme custom chỉnh ngay trên UI
+  - Thêm tính năng label cho task
+  - Thêm các thống kê liên quan đến hiệu suất: burn down chart, task distribution, deadline pressure, tỉ lệ quá hạn theo label,...
+  - Thêm import / export task (excel hoặc pdf)
+  - Swipe action cho mobile (Chuyển đối status của task)
+  - Các hiệu ứng / animation cho giao diện: skeleton, loading,...
+  - Nâng cấp các thuộc tính của task, ví dụ như: Có thể thêm ảnh, sub-task, ...
+- Cải thiện bảo mật / validation
+- Test và fix các bug ẩn có thể xuất hiện trong project
+- Refactor code để clean hơn
+- Làm backend:
+  - Thay đổi từ localStorage sang backend kết hợp realtime để nhận notification
+  - Thêm đăng nhập / đăng ký
