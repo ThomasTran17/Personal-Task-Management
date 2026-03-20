@@ -78,7 +78,7 @@ src/
 
 ### 2. Multi-layer Deadline Notifications
 - **Toast** (Sonner): Hiển thị khi user đang sử dụng app
-- **Browser Push**: Hiển thị ngoài app, cần HTTPS để hoạt động
+- **Browser Push**: Hiển thị ngoài app, cần cấp quyền để hoạt động
 - Kiểm tra deadline mỗi 1 phút, thông báo khi gần 1 ngày hoặc 1 giờ trước hạn
 
 ### 3. Kanban Board
@@ -117,6 +117,7 @@ src/
 
 ## Những điểm mình sẽ cải thiện nếu có thêm thời gian
 - Thêm nội dung mới:
+  - Thêm sort, filter task
   - Thêm Internationalization (Tiếng Việt)
   - Thêm theme custom chỉnh ngay trên UI
   - Thêm tính năng label cho task
@@ -125,9 +126,10 @@ src/
   - Swipe action cho mobile (Chuyển đối status của task)
   - Các hiệu ứng / animation cho giao diện: skeleton, loading,...
   - Nâng cấp các thuộc tính của task, ví dụ như: Có thể thêm ảnh, sub-task, ...
+  - Cho phép user thiết lập giờ thông báo
 - Cải thiện bảo mật / validation
 - Test và fix các bug ẩn có thể xuất hiện trong project
-- Refactor code để clean hơn
+- Refactor và optimize code
 - Làm backend:
   - Thay đổi từ localStorage sang backend kết hợp realtime để nhận notification
   - Thêm đăng nhập / đăng ký
