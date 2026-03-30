@@ -23,7 +23,9 @@ export default function EmptyColumnState({ status, isFiltered }: EmptyColumnStat
         return {
           icon: Clock,
           title: 'Nothing Started',
-          description: isFiltered ? 'No matching tasks in progress' : 'Move a task here to get started',
+          description: isFiltered
+            ? 'No matching tasks in progress'
+            : 'Move a task here to get started',
           bgColor: 'bg-yellow-50',
           borderColor: 'border-yellow-300',
           textColor: 'text-yellow-700',
@@ -33,7 +35,9 @@ export default function EmptyColumnState({ status, isFiltered }: EmptyColumnStat
         return {
           icon: CheckCircle2,
           title: 'No Completed Tasks',
-          description: isFiltered ? 'No matching completed tasks' : 'Finish tasks to celebrate here',
+          description: isFiltered
+            ? 'No matching completed tasks'
+            : 'Finish tasks to celebrate here',
           bgColor: 'bg-green-50',
           borderColor: 'border-green-300',
           textColor: 'text-green-700',
@@ -52,10 +56,20 @@ export default function EmptyColumnState({ status, isFiltered }: EmptyColumnStat
     }
   };
 
-  const { icon: Icon, title, description, bgColor, borderColor, textColor, iconColor } = getEmptyStateContent();
+  const {
+    icon: Icon,
+    title,
+    description,
+    bgColor,
+    borderColor,
+    textColor,
+    iconColor,
+  } = getEmptyStateContent();
 
   return (
-    <div className={`flex flex-col items-center justify-center w-full h-full min-h-48 ${bgColor} border-2 ${borderColor} rounded-lg p-6`}>
+    <div
+      className={`flex flex-col items-center justify-center w-full h-full min-h-48 ${bgColor} border-2 ${borderColor} rounded-lg p-6`}
+    >
       {/* Icon */}
       <Icon className={`w-12 h-12 ${iconColor} mb-4`} strokeWidth={1.5} />
 
@@ -63,9 +77,7 @@ export default function EmptyColumnState({ status, isFiltered }: EmptyColumnStat
       <h3 className={`text-lg font-bold ${textColor} mb-2`}>{title}</h3>
 
       {/* Description */}
-      <p className={`${textColor} opacity-80 text-sm text-center max-w-xs`}>
-        {description}
-      </p>
+      <p className={`${textColor} opacity-80 text-sm text-center max-w-xs`}>{description}</p>
     </div>
   );
 }

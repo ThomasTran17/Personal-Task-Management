@@ -1,10 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
-import { KanbanSquare, BarChart3 } from "lucide-react";
+import { Link, useLocation } from 'react-router-dom';
+import { KanbanSquare, BarChart3 } from 'lucide-react';
 
 interface NavItem {
   href: string;
   label: string;
-  iconType: "kanban" | "stats";
+  iconType: 'kanban' | 'stats';
 }
 
 interface BottomNavProps {
@@ -13,9 +13,9 @@ interface BottomNavProps {
 
 const getIcon = (iconType: string) => {
   switch (iconType) {
-    case "kanban":
+    case 'kanban':
       return <KanbanSquare size={24} />;
-    case "stats":
+    case 'stats':
       return <BarChart3 size={24} />;
     default:
       return null;
@@ -37,9 +37,7 @@ export function BottomNav({ items }: BottomNavProps) {
               key={item.href}
               to={item.href}
               className={`flex flex-col items-center justify-center w-full h-full gap-1 py-2 font-semibold transition-all ${
-                isActive
-                  ? "bg-main text-dark shadow-neubru"
-                  : "bg-white text-dark hover:bg-main"
+                isActive ? 'bg-main text-dark shadow-neubru' : 'bg-white text-dark hover:bg-main'
               }`}
             >
               {getIcon(item.iconType)}

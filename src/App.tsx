@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Sidebar } from '@/components/shared/Sidebar'
-import { BottomNav } from '@/components/shared/BottomNav'
-import { Toaster } from '@/components/ui/sonner'
-import ListPage from '@/pages/ListPage'
-import StatisticsPage from '@/pages/StatisticsPage'
-import { usePeriodicDeadlineCheck } from '@/hooks/usePeriodicDeadlineCheck'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Sidebar } from '@/components/shared/Sidebar';
+import { BottomNav } from '@/components/shared/BottomNav';
+import { Toaster } from '@/components/ui/sonner';
+import ListPage from '@/pages/ListPage';
+import StatisticsPage from '@/pages/StatisticsPage';
+import { usePeriodicDeadlineCheck } from '@/hooks/usePeriodicDeadlineCheck';
 
 const navItems = [
   {
@@ -17,11 +17,11 @@ const navItems = [
     label: 'Statistics',
     iconType: 'stats' as const,
   },
-]
+];
 
 export default function App() {
   // Setup deadline notifications that persist across page refreshes
-  usePeriodicDeadlineCheck()
+  usePeriodicDeadlineCheck();
 
   return (
     <Router>
@@ -37,5 +37,5 @@ export default function App() {
       </div>
       <Toaster />
     </Router>
-  )
+  );
 }

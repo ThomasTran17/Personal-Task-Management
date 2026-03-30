@@ -103,10 +103,7 @@ export const formatDateTime = (date: Date): string => {
  * @param isDueSoon - Whether deadline is within 24 hours
  * @returns Status label string
  */
-export const getDeadlineStatusLabel = (
-  isOverdue: boolean,
-  isDueSoon: boolean
-): string => {
+export const getDeadlineStatusLabel = (isOverdue: boolean, isDueSoon: boolean): string => {
   if (isOverdue) return 'Overdue';
   if (isDueSoon) return 'Due Today/Tomorrow';
   return 'Due';

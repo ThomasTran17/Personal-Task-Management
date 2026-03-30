@@ -86,16 +86,10 @@ function EfficiencyMetricCard({
   return (
     <div className={`border-2 ${borderColor} ${bgColor} p-6 flex flex-col`}>
       <div className={`${textColor} mb-3`}>{icon}</div>
-      <p className="text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
-        {label}
-      </p>
-      <p className={`text-3xl md:text-4xl font-black ${textColor} mb-1`}>
-        {value}
-      </p>
+      <p className="text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">{label}</p>
+      <p className={`text-3xl md:text-4xl font-black ${textColor} mb-1`}>{value}</p>
       <p className="text-xs font-medium text-gray-600 mb-3">{unit}</p>
-      <p className="text-xs text-gray-600 border-t-2 border-gray-300 pt-3">
-        {description}
-      </p>
+      <p className="text-xs text-gray-600 border-t-2 border-gray-300 pt-3">{description}</p>
     </div>
   );
 }

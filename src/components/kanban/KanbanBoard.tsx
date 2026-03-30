@@ -25,7 +25,8 @@ export default function KanbanBoard() {
   const { tasks, deleteTask } = useTaskStore();
 
   // Drag and drop hook
-  const { dragState, handleDragStart, handleDragOver, handleDrop, handleDragEnd } = useDragAndDrop();
+  const { dragState, handleDragStart, handleDragOver, handleDrop, handleDragEnd } =
+    useDragAndDrop();
 
   // Setup periodic deadline check (toast notifications)
   usePeriodicDeadlineCheck();
@@ -39,16 +40,13 @@ export default function KanbanBoard() {
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
       // Search filter by title (case-insensitive)
-      const matchesSearch = task.title
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+      const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase());
 
       // Status filter
       const matchesStatus = filterStatus === 'all' || task.status === filterStatus;
 
       // Priority filter
-      const matchesPriority =
-        filterPriority === 'all' || task.priority === filterPriority;
+      const matchesPriority = filterPriority === 'all' || task.priority === filterPriority;
 
       return matchesSearch && matchesStatus && matchesPriority;
     });
@@ -81,7 +79,12 @@ export default function KanbanBoard() {
         />
 
         {/* Desktop Grid View */}
-        <div className="hidden lg:grid gap-6" style={{ gridTemplateColumns: `repeat(${filterStatus === 'all' ? 3 : 1}, minmax(0, 1fr))` }}>
+        <div
+          className="hidden lg:grid gap-6"
+          style={{
+            gridTemplateColumns: `repeat(${filterStatus === 'all' ? 3 : 1}, minmax(0, 1fr))`,
+          }}
+        >
           {COLUMNS.map((column) => {
             // Hide columns if specific status is filtered
             if (filterStatus !== 'all' && column.status !== filterStatus) {
@@ -109,8 +112,8 @@ export default function KanbanBoard() {
 
         {/* Mobile Tabs View */}
         <div className="lg:hidden">
-          <Tabs 
-            value={filterStatus === 'all' ? 'todo' : filterStatus} 
+          <Tabs
+            value={filterStatus === 'all' ? 'todo' : filterStatus}
             onValueChange={(value) => setFilterStatus(value as TaskStatus)}
           >
             <TabsList className="grid w-full grid-cols-3 mb-6">
@@ -142,10 +145,7 @@ export default function KanbanBoard() {
       </div>
 
       {/* Add Task Dialog */}
-      <AddTaskDialog
-        isOpen={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-      />
+      <AddTaskDialog isOpen={isDialogOpen} onOpenChange={setIsDialogOpen} />
     </div>
   );
 }

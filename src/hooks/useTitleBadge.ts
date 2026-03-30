@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect } from 'react';
 import { useTaskStore } from '@/store/taskStore';
 import { getTimeUntilDeadline, ONE_HOUR_MS, ONE_DAY_MS } from '@/lib/deadlineHelpers';

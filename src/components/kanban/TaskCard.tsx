@@ -14,11 +14,7 @@ import EditTaskDialog from './EditTaskDialog';
 import type { Task } from '@/types/task';
 import { Trash2, Edit2, Calendar, AlertCircle, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import {
-  getDeadlineStatus,
-  getDeadlineStatusClass,
-  formatDateTime,
-} from '@/lib/deadlineHelpers';
+import { getDeadlineStatus, getDeadlineStatusClass, formatDateTime } from '@/lib/deadlineHelpers';
 import { deadlineUpdateSignal } from '@/lib/deadlineUpdateSignal';
 
 interface TaskCardProps {
@@ -50,7 +46,7 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
 
     // Periodically trigger re-render for relative time updates (e.g., "1 hour left")
     const interval = setInterval(() => {
-      setSignalCurrentTime((prev) => (prev ?? Date.now()));
+      setSignalCurrentTime((prev) => prev ?? Date.now());
     }, 10000); // 10 seconds for faster UI updates
 
     return () => {
@@ -60,13 +56,10 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
   }, [task.dueDate, task.status]);
 
   // Memoized deadline status - re-compute when time updates
-  const deadlineStatus = useMemo(
-    () => {
-      const status = getDeadlineStatus(task.dueDate, task.status, signalCurrentTime);
-      return status;
-    },
-    [task.dueDate, task.status, signalCurrentTime]
-  );
+  const deadlineStatus = useMemo(() => {
+    const status = getDeadlineStatus(task.dueDate, task.status, signalCurrentTime);
+    return status;
+  }, [task.dueDate, task.status, signalCurrentTime]);
 
   const { isOverdue, isDueSoon, isUrgent } = deadlineStatus;
 
@@ -91,9 +84,7 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
 
         {/* Task Description */}
         {task.description && (
-          <p className="text-xs text-foreground/60 mb-3 line-clamp-2">
-            {task.description}
-          </p>
+          <p className="text-xs text-foreground/60 mb-3 line-clamp-2">{task.description}</p>
         )}
 
         {/* Due Date */}
@@ -112,7 +103,8 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
                 <Calendar className="size-4 flex-shrink-0" />
               )}
               <span className="flex-1">
-                {isOverdue ? 'Overdue' : isDueSoon ? 'Due Today/Tomorrow' : 'Due'}: {formatDateTime(task.dueDate)}
+                {isOverdue ? 'Overdue' : isDueSoon ? 'Due Today/Tomorrow' : 'Due'}:{' '}
+                {formatDateTime(task.dueDate)}
               </span>
             </div>
 
@@ -161,11 +153,7 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
       </Card>
 
       {/* Edit Task Dialog */}
-      <EditTaskDialog
-        isOpen={isEditDialogOpen}
-        onOpenChange={setIsEditDialogOpen}
-        task={task}
-      />
+      <EditTaskDialog isOpen={isEditDialogOpen} onOpenChange={setIsEditDialogOpen} task={task} />
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
@@ -178,9 +166,7 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
           </AlertDialogHeader>
           <div className="flex justify-end gap-2">
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteConfirm}>
-              Delete
-            </AlertDialogAction>
+            <AlertDialogAction onClick={handleDeleteConfirm}>Delete</AlertDialogAction>
           </div>
         </AlertDialogContent>
       </AlertDialog>

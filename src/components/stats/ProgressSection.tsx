@@ -21,16 +21,12 @@ export function ProgressSection({ completionRate }: ProgressSectionProps) {
             style={{ width: `${completionRate}%` }}
           >
             {isProgressVisible && (
-              <span className="text-white font-black text-sm">
-                {completionRate}%
-              </span>
+              <span className="text-white font-black text-sm">{completionRate}%</span>
             )}
           </div>
         </div>
         {!isProgressVisible && (
-          <div className="text-center text-gray-600 font-medium">
-            {completionRate}% Complete
-          </div>
+          <div className="text-center text-gray-600 font-medium">{completionRate}% Complete</div>
         )}
       </div>
     </Card>

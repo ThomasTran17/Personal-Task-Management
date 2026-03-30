@@ -1,15 +1,8 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 import { useTaskStore } from '@/store/taskStore';
 import { deadlineUpdateSignal } from '@/lib/deadlineUpdateSignal';
-import {
-  setGlobalSwRegistration,
-  updateBrowserBadge,
-} from '@/lib/notificationHelpers';
-import {
-  processTaskNotification,
-} from '@/lib/notificationManager';
+import { setGlobalSwRegistration, updateBrowserBadge } from '@/lib/notificationHelpers';
+import { processTaskNotification } from '@/lib/notificationManager';
 
 /**
  * Hook to setup browser push notifications

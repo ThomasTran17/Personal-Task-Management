@@ -4,7 +4,7 @@
 
 ## ✨ Tính Năng
 
-- ✅ **Thêm/Sửa/Xóa công việc** 
+- ✅ **Thêm/Sửa/Xóa công việc**
 - Kanban Board với 3 trạng thái (TODO, In Progress, Done), có kéo - thả
 - 🔍 **Tìm kiếm và lọc** - Theo tên, trạng thái, mức độ ưu tiên
 - 💾 **Lưu localStorage** - Dữ liệu không mất khi tắt trình duyệt
@@ -32,23 +32,28 @@
 ## 🚀 Hướng Dẫn Cài Đặt & Chạy
 
 ### 1. Clone Repository
+
 ```bash
 git clone https://github.com/ThomasTran17/Personal-Task-Management.git
 cd personal-task-management
 ```
 
 ### 2. Cài Đặt Dependencies
+
 ```bash
 npm install
 ```
 
 ### 3. Chạy Ứng Dụng
+
 ```bash
 npm run dev
 ```
+
 Mở `http://localhost:3000` trong trình duyệt.
 
 ### 4. Build Production
+
 ```bash
 npm run build
 npm run start
@@ -73,35 +78,41 @@ src/
 ## 💡 Quyết Định Kỹ Thuật
 
 ### 1. Zustand + localStorage (State Management)
+
 - **Lý do**: Nhẹ, không cần boilerplate như Redux. Middleware `persist` tự động lưu vào localStorage.
 - Task được lưu tự động, dữ liệu không bị mất khi refresh.
 
 ### 2. Multi-layer Deadline Notifications
+
 - **Toast** (Sonner): Hiển thị khi user đang sử dụng app
 - **Browser Push**: Hiển thị ngoài app, cần cấp quyền để hoạt động
 - Kiểm tra deadline mỗi 1 phút, thông báo khi gần 1 ngày hoặc 1 giờ trước hạn
 
 ### 3. Kanban Board
+
 - 3 cột: TODO, In Progress, Done
 - Responsive: desktop 3 cột, mobile dùng tabs
 - Sử dụng Radix UI Tabs cho accessibility
 
 ### 4. Statistics Page
+
 - **Progress**: Thanh tiến độ hoàn thành
 - **Efficiency**: Tỷ lệ task hoàn thành
 - **Trend**: Biểu đồ xu hướng theo ngày
 - **Breakdown**: Phân loại task theo trạng thái & priority
 
 ### 5. Form Validation
+
 - **React Hook Form**: Quản lý form state hiệu quả
 - **Zod**: Schema validation type-safe
 
 ### 6. UI: shadcn/ui + Tailwind
+
 - Copy-paste components, customizable
 - Built on Radix UI (accessibility-first)
 - Fully responsive
 
-##  Cách Sử Dụng
+## Cách Sử Dụng
 
 - **Thêm task**: Nhấp "New Task" → Điền thông tin → Create
 - **Sửa task**: Nhấp vào task → Cập nhật → Update
@@ -116,6 +127,7 @@ src/
 1. Dữ liệu lưu **localStorage** - xóa cache sẽ mất dữ liệu
 
 ## Những điểm mình sẽ cải thiện nếu có thêm thời gian
+
 - Thêm nội dung mới:
   - Thêm sort, filter task
   - Thêm Internationalization (Tiếng Việt)

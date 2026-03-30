@@ -1,20 +1,20 @@
-import { create } from "zustand";
-import type { PersistStorage } from "zustand/middleware";
-import { persist } from "zustand/middleware";
-import type { Task, TaskStatus } from "@/types/task";
+import { create } from 'zustand';
+import type { PersistStorage } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
+import type { Task, TaskStatus } from '@/types/task';
 
 interface TaskState {
   tasks: Task[];
-  filter: TaskStatus | "all";
+  filter: TaskStatus | 'all';
 }
 
 interface TaskActions {
-  addTask: (task: Omit<Task, "id" | "createdAt" | "updatedAt">) => void;
+  addTask: (task: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) => void;
   updateTask: (id: string, updates: Partial<Task>) => void;
   deleteTask: (id: string) => void;
   getTasks: () => Task[];
   getTasksByStatus: (status: TaskStatus) => Task[];
-  setFilter: (filter: TaskStatus | "all") => void;
+  setFilter: (filter: TaskStatus | 'all') => void;
   clearAllTasks: () => void;
 }
 
@@ -24,7 +24,7 @@ export const useTaskStore = create<TaskStore>()(
   persist(
     (set, get) => ({
       tasks: [],
-      filter: "all",
+      filter: 'all',
 
       addTask: (task) => {
         const newTask: Task = {
@@ -41,9 +41,7 @@ export const useTaskStore = create<TaskStore>()(
       updateTask: (id, updates) => {
         set((state) => ({
           tasks: state.tasks.map((task) =>
-            task.id === id
-              ? { ...task, ...updates, updatedAt: new Date() }
-              : task
+            task.id === id ? { ...task, ...updates, updatedAt: new Date() } : task
           ),
         }));
       },
@@ -71,15 +69,15 @@ export const useTaskStore = create<TaskStore>()(
       },
     }),
     {
-      name: "task-storage",
+      name: 'task-storage',
       storage: {
         getItem: (name: string) => {
           const item = localStorage.getItem(name);
           if (!item) return null;
-          
-          const parsed = JSON.parse(item) as { 
-            state: { tasks: Record<string, unknown>[]; filter: string }
-            version: number 
+
+          const parsed = JSON.parse(item) as {
+            state: { tasks: Record<string, unknown>[]; filter: string };
+            version: number;
           };
           return {
             state: {

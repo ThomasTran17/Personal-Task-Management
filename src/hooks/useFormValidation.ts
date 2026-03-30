@@ -28,43 +28,37 @@ const VALIDATION_RULES: ValidationRules = {
 export function useFormValidation() {
   const [errors, setErrors] = useState<ValidationErrors>({});
 
-  const validateField = useCallback(
-    (fieldName: string, value: string | undefined): boolean => {
+  const validateField = useCallback((fieldName: string, value: string | undefined): boolean => {
+    const rule = VALIDATION_RULES[fieldName];
+    if (!rule) return true;
+
+    const error = rule(value);
+    setErrors((prev) => ({
+      ...prev,
+      [fieldName]: error,
+    }));
+
+    return !error;
+  }, []);
+
+  const validateForm = useCallback((formData: Record<string, string | undefined>): boolean => {
+    const newErrors: ValidationErrors = {};
+    let isValid = true;
+
+    Object.entries(formData).forEach(([fieldName, value]) => {
       const rule = VALIDATION_RULES[fieldName];
-      if (!rule) return true;
-
-      const error = rule(value);
-      setErrors((prev) => ({
-        ...prev,
-        [fieldName]: error,
-      }));
-
-      return !error;
-    },
-    []
-  );
-
-  const validateForm = useCallback(
-    (formData: Record<string, string | undefined>): boolean => {
-      const newErrors: ValidationErrors = {};
-      let isValid = true;
-
-      Object.entries(formData).forEach(([fieldName, value]) => {
-        const rule = VALIDATION_RULES[fieldName];
-        if (rule) {
-          const error = rule(value);
-          if (error) {
-            newErrors[fieldName] = error;
-            isValid = false;
-          }
+      if (rule) {
+        const error = rule(value);
+        if (error) {
+          newErrors[fieldName] = error;
+          isValid = false;
         }
-      });
+      }
+    });
 
-      setErrors(newErrors);
-      return isValid;
-    },
-    []
-  );
+    setErrors(newErrors);
+    return isValid;
+  }, []);
 
   const clearErrors = useCallback(() => {
     setErrors({});

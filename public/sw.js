@@ -10,9 +10,7 @@ self.addEventListener('push', (event) => {
     requireInteraction: data.requireInteraction || false,
   };
 
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
+  event.waitUntil(self.registration.showNotification(title, options));
 });
 
 // Handle notification click
