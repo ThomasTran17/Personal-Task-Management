@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { persist, PersistStorage } from "zustand/middleware";
-import { Task, TaskStatus } from "@/types/task";
+import type { PersistStorage } from "zustand/middleware";
+import { persist } from "zustand/middleware";
+import type { Task, TaskStatus } from "@/types/task";
 
 interface TaskState {
   tasks: Task[];

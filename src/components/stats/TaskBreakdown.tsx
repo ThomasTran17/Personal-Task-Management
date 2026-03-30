@@ -1,7 +1,8 @@
-import { Task } from '@/types/task';
+import type { Task } from '@/types/task';
+import type {
+  TaskBreakdownItemProps} from './TaskBreakdownItem';
 import {
-  TaskBreakdownItem,
-  TaskBreakdownItemProps,
+  TaskBreakdownItem
 } from './TaskBreakdownItem';
 
 export interface TaskBreakdownProps {

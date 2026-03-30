@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import { useTaskStore } from '@/store/taskStore';
-import { Task, TaskStatus, TaskPriority } from '@/types/task';
+import type { Task, TaskStatus, TaskPriority } from '@/types/task';
 import DatePicker from '@/components/ui/date-picker';
 
 interface EditTaskDialogProps {

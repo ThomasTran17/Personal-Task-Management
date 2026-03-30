@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/card';
-import { TrendAnalysis } from '@/types/statistics';
+import type { TrendAnalysis } from '@/types/statistics';
 import {
   LineChart,
   Line,

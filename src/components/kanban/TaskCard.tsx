@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import EditTaskDialog from './EditTaskDialog';
-import { Task } from '@/types/task';
+import type { Task } from '@/types/task';
 import { Trash2, Edit2, Calendar, AlertCircle, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {

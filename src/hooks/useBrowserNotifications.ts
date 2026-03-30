@@ -36,6 +36,7 @@ export const useBrowserNotifications = () => {
           permissionRef.current = permission;
         } catch (error) {
           // Error requesting permission
+          console.error('Error requesting notification permission:', error);
         }
       }
 
