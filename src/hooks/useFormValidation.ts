@@ -1,16 +1,12 @@
 import { useState, useCallback } from 'react';
 
-export interface ValidationErrors {
-  [key: string]: string | undefined;
-}
+export type ValidationErrors = Record<string, string | undefined>;
 
-interface ValidationRules {
-  [key: string]: (value: string | undefined) => string | undefined;
-}
+type ValidationRules = Record<string, (value: string | undefined) => string | undefined>;
 
 const VALIDATION_RULES: ValidationRules = {
   title: (value) => {
-    if (!value || !value.trim()) {
+    if (!value?.trim()) {
       return 'Task title is required';
     }
     if (value.trim().length < 3) {

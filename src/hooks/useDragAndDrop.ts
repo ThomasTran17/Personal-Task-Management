@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTaskStore } from '@/store/taskStore';
-import { Task, TaskStatus } from '@/types/task';
+import type { TaskStatus } from '@/types/task';
 import { toast } from 'sonner';
 
 interface DragState {

@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { persist, PersistStorage } from "zustand/middleware";
-import { Task, TaskStatus } from "@/types/task";
+import type { PersistStorage } from "zustand/middleware";
+import { persist } from "zustand/middleware";
+import type { Task, TaskStatus } from "@/types/task";
 
 interface TaskState {
   tasks: Task[];
@@ -76,7 +77,10 @@ export const useTaskStore = create<TaskStore>()(
           const item = localStorage.getItem(name);
           if (!item) return null;
           
-          const parsed: { state: { tasks: Record<string, unknown>[]; filter: string }; version: number } = JSON.parse(item);
+          const parsed = JSON.parse(item) as { 
+            state: { tasks: Record<string, unknown>[]; filter: string }
+            version: number 
+          };
           return {
             state: {
               ...parsed.state,

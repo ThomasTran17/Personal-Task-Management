@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { TaskStatus, TaskPriority } from '@/types/task';
+import type { TaskStatus, TaskPriority } from '@/types/task';
 import { Search, X, Plus, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

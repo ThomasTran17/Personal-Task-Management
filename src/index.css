@@ -1,67 +1,42 @@
+@import "./custom.css";
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
-::-webkit-scrollbar {
-  width: 16px;
-  height: 16px;
-}
-
-::-webkit-scrollbar-track {
-  background: #ffffff;
-  
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #000000;
-  border-left: 2px solid #000;
-  border-right: 2px solid #000;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #000000;
-  cursor: pointer;
-}
-
-::-webkit-scrollbar-corner {
-  background: #000;
-}
-
-
-
 :root {
-  --background: oklch(93.88% 0.033 300.19);
+  --background: oklch(96.47% 0.0401 157.79);
   --secondary-background: oklch(100% 0 0);
   --foreground: oklch(0% 0 0);
   --main-foreground: oklch(0% 0 0);
-  --main: oklch(70.28% 0.1753 295.36);
+  --main: oklch(79.76% 0.2044 153.08);
   --border: oklch(0% 0 0);
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
   --shadow: 4px 4px 0px 0px var(--border);
-  --chart-1: #A985FF;
-  --chart-2: #00D696;
-  --chart-3: #FACC00;
-  --chart-4: #FF4D50;
-  --chart-5: #0099FF;
+  --chart-1: #00D696;
+  --chart-2: #FF7A05;
+  --chart-3: #0099FF;
+  --chart-4: #FFBF00;
+  --chart-5: #7A83FF;
   --chart-active-dot: #000;
 }
 
 .dark {
-  --background: oklch(30.14% 0.0826 296.5);
+  --background: oklch(22.45% 0.0316 158.41);
   --secondary-background: oklch(23.93% 0 0);
   --foreground: oklch(92.49% 0 0);
   --main-foreground: oklch(0% 0 0);
-  --main: oklch(70.28% 0.1753 295.36);
+  --main: oklch(73.03% 0.1865 153.23);
   --border: oklch(0% 0 0);
   --ring: oklch(100% 0 0);
   --shadow: 4px 4px 0px 0px var(--border);
-  --chart-1: #A985FF;
-  --chart-2: #00BD84;
-  --chart-3: #E0B700;
-  --chart-4: #FF6669;
-  --chart-5: #008AE5;
+  --chart-1: #00BD84;
+  --chart-2: #EB6D00;
+  --chart-3: #008AE5;
+  --chart-4: #E5AC00;
+  --chart-5: #7A83FF;
   --chart-active-dot: #fff;
 }
 

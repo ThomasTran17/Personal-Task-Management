@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import { useTaskStore } from '@/store/taskStore';
-import { TaskStatus, TaskPriority } from '@/types/task';
+import type { TaskStatus, TaskPriority } from '@/types/task';
 import DatePicker from '@/components/ui/date-picker';
 
 interface AddTaskDialogProps {
@@ -85,10 +85,10 @@ export default function AddTaskDialog({
 
     addTask({
       title: title.trim(),
-      description: description.trim() || undefined,
+      description: description.trim() ?? undefined,
       status,
       priority,
-      dueDate: dueDate || undefined,
+      dueDate: dueDate ?? undefined,
     });
 
     resetForm();

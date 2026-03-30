@@ -36,6 +36,7 @@ export const useBrowserNotifications = () => {
           permissionRef.current = permission;
         } catch (error) {
           // Error requesting permission
+          console.error('Error requesting notification permission:', error);
         }
       }
 
@@ -44,13 +45,13 @@ export const useBrowserNotifications = () => {
         try {
           const registration = await navigator.serviceWorker.register('/sw.js');
           setGlobalSwRegistration(registration);
-        } catch (error) {
+        } catch {
           // Service Worker registration failed
         }
       }
     };
 
-    setupNotifications();
+    void setupNotifications();
   }, []); // Run only once on mount
 
   // Effect: Subscribe to signal from periodic check

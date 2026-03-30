@@ -1,7 +1,8 @@
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Slot } from "@radix-ui/react-slot"
-import { cva, VariantProps } from "class-variance-authority"
+import type { VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority"
 import { PanelLeftIcon } from "lucide-react"
 
 import * as React from "react"
@@ -32,7 +33,7 @@ const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
-type SidebarContextProps = {
+interface SidebarContextProps {
   state: "expanded" | "collapsed"
   open: boolean
   setOpen: (open: boolean) => void
@@ -539,7 +540,7 @@ function SidebarMenuButton({
 function SidebarMenuAction({
   className,
   asChild = false,
-  showOnHover = false,
+  showOnHover: _showOnHover = false,
   ...props
 }: React.ComponentProps<"button"> & {
   asChild?: boolean
@@ -595,10 +596,13 @@ function SidebarMenuSkeleton({
 }: React.ComponentProps<"div"> & {
   showIcon?: boolean
 }) {
-  // Random width between 50 to 90%.
-  const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
-  }, [])
+  // Generate random width once on mount
+  const [width] = React.useState(() => {
+    const randomPercent = typeof window !== 'undefined'
+      ? Math.floor(Math.random() * 40) + 50
+      : 70;
+    return `${randomPercent}%`;
+  });
 
   return (
     <div
@@ -712,3 +716,4 @@ export {
   SidebarTrigger,
   useSidebar,
 }
+ 

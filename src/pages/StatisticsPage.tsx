@@ -3,7 +3,7 @@ import { useTaskStore } from '@/store/taskStore';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { TrendingUp, CheckCircle2, AlertTriangle, ListTodo } from 'lucide-react';
-import { TaskStats, EfficiencyMetrics, TrendAnalysis } from '@/types/statistics';
+import type { TaskStats, EfficiencyMetrics, TrendAnalysis } from '@/types/statistics';
 import {
   calculateTaskStats,
   calculateEfficiencyMetrics,

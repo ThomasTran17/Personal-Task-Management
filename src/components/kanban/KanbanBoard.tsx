@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTaskStore } from '@/store/taskStore';
-import { Task, TaskStatus, TaskPriority } from '@/types/task';
+import type { TaskStatus, TaskPriority } from '@/types/task';
 import KanbanColumn from '@/components/kanban/KanbanColumn';
 import AddTaskDialog from '@/components/kanban/AddTaskDialog';
 import SearchAndFilter from '@/components/kanban/SearchAndFilter';
