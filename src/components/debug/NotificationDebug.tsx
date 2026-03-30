@@ -24,7 +24,7 @@ export const NotificationDebug = () => {
     const checkStatus = async () => {
       const apiSupported = 'Notification' in window;
       const permission = apiSupported ? Notification.permission : 'default';
-      
+
       let serviceWorkerActive = false;
       let serviceWorkerUrl = null;
 
@@ -88,31 +88,43 @@ export const NotificationDebug = () => {
     <Card className="p-4 bg-gray-50 border-2 border-gray-300">
       <div className="space-y-3">
         <h3 className="font-bold text-sm">🔍 Notification Debug Info</h3>
-        
+
         <div className="space-y-2 text-xs">
           <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${status.apiSupported ? 'bg-green-500' : 'bg-red-500'}`} />
-            <span>API Supported: <strong>{status.apiSupported ? 'Yes' : 'No'}</strong></span>
+            <span
+              className={`w-2 h-2 rounded-full ${status.apiSupported ? 'bg-green-500' : 'bg-red-500'}`}
+            />
+            <span>
+              API Supported: <strong>{status.apiSupported ? 'Yes' : 'No'}</strong>
+            </span>
           </div>
-          
+
           <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${
-              status.permission === 'granted' ? 'bg-green-500' : 
-              status.permission === 'denied' ? 'bg-red-500' : 
-              'bg-yellow-500'
-            }`} />
-            <span>Permission: <strong>{status.permission}</strong></span>
+            <span
+              className={`w-2 h-2 rounded-full ${
+                status.permission === 'granted'
+                  ? 'bg-green-500'
+                  : status.permission === 'denied'
+                    ? 'bg-red-500'
+                    : 'bg-yellow-500'
+              }`}
+            />
+            <span>
+              Permission: <strong>{status.permission}</strong>
+            </span>
           </div>
-          
+
           <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${status.serviceWorkerActive ? 'bg-green-500' : 'bg-orange-500'}`} />
-            <span>Service Worker: <strong>{status.serviceWorkerActive ? 'Active' : 'Inactive'}</strong></span>
+            <span
+              className={`w-2 h-2 rounded-full ${status.serviceWorkerActive ? 'bg-green-500' : 'bg-orange-500'}`}
+            />
+            <span>
+              Service Worker: <strong>{status.serviceWorkerActive ? 'Active' : 'Inactive'}</strong>
+            </span>
           </div>
-          
+
           {status.serviceWorkerUrl && (
-            <div className="text-xs text-gray-600 truncate">
-              SW URL: {status.serviceWorkerUrl}
-            </div>
+            <div className="text-xs text-gray-600 truncate">SW URL: {status.serviceWorkerUrl}</div>
           )}
         </div>
 
@@ -123,7 +135,7 @@ export const NotificationDebug = () => {
           >
             Request Permission
           </button>
-          
+
           <button
             onClick={testNotification}
             disabled={status.permission !== 'granted'}

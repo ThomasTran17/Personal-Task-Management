@@ -29,8 +29,5 @@ export const requestNotificationPermission = async (): Promise<boolean> => {
  * Check if notifications are supported and enabled
  */
 export const areNotificationsEnabled = (): boolean => {
-  return (
-    'Notification' in window &&
-    Notification.permission === 'granted'
-  );
+  return 'Notification' in window && Notification.permission === 'granted';
 };

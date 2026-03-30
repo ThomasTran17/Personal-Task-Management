@@ -32,7 +32,9 @@ export default function KanbanColumn({
   return (
     <div className="flex flex-col h-full">
       {/* Column Header */}
-      <div className={`${bgColor} border-2 border-border rounded-t-lg p-4 font-bold text-foreground`}>
+      <div
+        className={`${bgColor} border-2 border-border rounded-t-lg p-4 font-bold text-foreground`}
+      >
         <div className="flex items-center justify-between">
           <span className="text-lg">{label}</span>
           <span className="bg-foreground text-background px-3 py-1 rounded-full text-sm font-bold">

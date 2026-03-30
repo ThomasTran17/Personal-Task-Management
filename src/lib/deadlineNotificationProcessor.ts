@@ -63,10 +63,7 @@ export const handleReminderDeadlineNotification = (
 /**
  * Clear notification state when deadline has passed
  */
-export const clearExpiredNotifications = (
-  taskId: string,
-  timeUntilMs: number
-): void => {
+export const clearExpiredNotifications = (taskId: string, timeUntilMs: number): void => {
   if (timeUntilMs < 0) {
     globalToastNotificationState.oneHourNotified.delete(taskId);
     globalToastNotificationState.oneDayNotified.delete(taskId);
@@ -76,10 +73,7 @@ export const clearExpiredNotifications = (
 /**
  * Clear urgent notification when no longer urgent
  */
-export const clearUrgentNotificationIfExpired = (
-  taskId: string,
-  timeUntilMs: number
-): void => {
+export const clearUrgentNotificationIfExpired = (taskId: string, timeUntilMs: number): void => {
   if (timeUntilMs >= ONE_HOUR_MS) {
     globalToastNotificationState.oneHourNotified.delete(taskId);
   }
@@ -88,10 +82,7 @@ export const clearUrgentNotificationIfExpired = (
 /**
  * Clear reminder notification when no longer in window
  */
-export const clearReminderNotificationIfExpired = (
-  taskId: string,
-  timeUntilMs: number
-): void => {
+export const clearReminderNotificationIfExpired = (taskId: string, timeUntilMs: number): void => {
   if (timeUntilMs >= ONE_DAY_MS || timeUntilMs < ONE_HOUR_MS) {
     globalToastNotificationState.oneDayNotified.delete(taskId);
   }

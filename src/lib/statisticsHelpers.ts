@@ -12,15 +12,10 @@ export function calculateTaskStats(tasks: Task[]): TaskStats {
 
   const completed = tasks.filter((task) => task.status === 'done').length;
   const overdue = tasks.filter(
-    (task) =>
-      task.status !== 'done' &&
-      task.dueDate &&
-      new Date(task.dueDate) < now
+    (task) => task.status !== 'done' && task.dueDate && new Date(task.dueDate) < now
   ).length;
 
-  const completionRate = tasks.length > 0
-    ? Math.round((completed / tasks.length) * 100)
-    : 0;
+  const completionRate = tasks.length > 0 ? Math.round((completed / tasks.length) * 100) : 0;
 
   return {
     total: tasks.length,
@@ -260,7 +255,20 @@ function formatDate(date: Date): string {
  */
 function formatDateShort(date: Date): string {
   const day = date.getDate();
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   return `${monthNames[date.getMonth()]} ${day}`;
 }
 

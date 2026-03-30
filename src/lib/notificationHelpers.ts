@@ -11,9 +11,7 @@ export let globalSwRegistration: ServiceWorkerRegistration | null = null;
 /**
  * Set global service worker registration
  */
-export const setGlobalSwRegistration = (
-  registration: ServiceWorkerRegistration | null
-): void => {
+export const setGlobalSwRegistration = (registration: ServiceWorkerRegistration | null): void => {
   globalSwRegistration = registration;
 };
 
@@ -65,10 +63,7 @@ export const formatDueTime = (dueDate: string): string => {
 /**
  * Update browser badge with notification count and page title
  */
-export const updateBrowserBadge = (
-  urgentCount: number,
-  upcomingCount: number
-): void => {
+export const updateBrowserBadge = (urgentCount: number, upcomingCount: number): void => {
   const badgeCount = urgentCount + upcomingCount;
   const baseTitle = 'Personal Task Management';
 

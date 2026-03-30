@@ -46,7 +46,7 @@ export default function SearchAndFilter({
   onAddTask,
 }: SearchAndFilterProps) {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-  
+
   const hasActiveFilters =
     searchValue.trim() !== '' || filterStatus !== 'all' || filterPriority !== 'all';
 
@@ -78,11 +78,7 @@ export default function SearchAndFilter({
           variant="neutral"
           className="flex items-center justify-center gap-2 flex-shrink-0 px-3"
         >
-          {isFiltersOpen ? (
-            <ChevronUp className="size-4" />
-          ) : (
-            <ChevronDown className="size-4" />
-          )}
+          {isFiltersOpen ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
         </Button>
       </div>
 
@@ -126,13 +122,18 @@ export default function SearchAndFilter({
       <div
         className={cn(
           'grid gap-4 transition-all duration-300 overflow-visible',
-          isFiltersOpen ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'hidden lg:grid lg:grid-cols-3'
+          isFiltersOpen
+            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            : 'hidden lg:grid lg:grid-cols-3'
         )}
       >
         {/* Status Filter - Hidden on Mobile (Tab view handles it) */}
         <div className="hidden lg:block space-y-2">
           <label className="text-sm font-medium">Filter by Status</label>
-          <Select value={filterStatus} onValueChange={(value) => onFilterStatus(value as TaskStatus | 'all')}>
+          <Select
+            value={filterStatus}
+            onValueChange={(value) => onFilterStatus(value as TaskStatus | 'all')}
+          >
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -149,7 +150,10 @@ export default function SearchAndFilter({
         {/* Priority Filter */}
         <div className="space-y-2">
           <label className="text-sm font-medium">Filter by Priority</label>
-          <Select value={filterPriority} onValueChange={(value) => onFilterPriority(value as TaskPriority | 'all')}>
+          <Select
+            value={filterPriority}
+            onValueChange={(value) => onFilterPriority(value as TaskPriority | 'all')}
+          >
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>

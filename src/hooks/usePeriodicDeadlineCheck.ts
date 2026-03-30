@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef, useCallback } from 'react';
 import { useTaskStore } from '@/store/taskStore';
 import type { Task } from '@/types/task';

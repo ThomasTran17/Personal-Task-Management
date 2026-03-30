@@ -44,10 +44,7 @@ const PRIORITY_OPTIONS = [
   { value: 'high', label: 'High' },
 ] as const;
 
-export default function AddTaskDialog({
-  isOpen,
-  onOpenChange,
-}: AddTaskDialogProps) {
+export default function AddTaskDialog({ isOpen, onOpenChange }: AddTaskDialogProps) {
   const [title, setTitle] = useState(INITIAL_FORM_STATE.title);
   const [description, setDescription] = useState(INITIAL_FORM_STATE.description);
   const [status, setStatus] = useState(INITIAL_FORM_STATE.status);
@@ -79,7 +76,7 @@ export default function AddTaskDialog({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const isValid = validateForm({ title, description });
     if (!isValid) return;
 
@@ -201,11 +198,7 @@ export default function AddTaskDialog({
 
           {/* Dialog Footer */}
           <DialogFooter className="gap-2">
-            <Button
-              type="button"
-              onClick={handleCancel}
-              variant="neutral"
-            >
+            <Button type="button" onClick={handleCancel} variant="neutral">
               Cancel
             </Button>
             <Button type="submit" variant="default">

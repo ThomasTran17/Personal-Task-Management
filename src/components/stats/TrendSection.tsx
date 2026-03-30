@@ -1,14 +1,6 @@
 import { Card } from '@/components/ui/card';
 import type { TrendAnalysis } from '@/types/statistics';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingDown, BarChart3 } from 'lucide-react';
 
 export interface TrendSectionProps {
@@ -96,9 +88,16 @@ export function TrendSection({ data }: TrendSectionProps) {
         {hasCompletionData && data.completionTrendData.some((d) => d.completed > 0) ? (
           <div className="w-full h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data.completionTrendData} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
+              <BarChart
+                data={data.completionTrendData}
+                margin={{ top: 10, right: 30, left: 0, bottom: 10 }}
+              >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                <XAxis dataKey="day" stroke="#666" style={{ fontSize: '12px', fontWeight: 'bold' }} />
+                <XAxis
+                  dataKey="day"
+                  stroke="#666"
+                  style={{ fontSize: '12px', fontWeight: 'bold' }}
+                />
                 <YAxis stroke="#666" style={{ fontSize: '12px', fontWeight: 'bold' }} />
                 <Tooltip
                   contentStyle={{

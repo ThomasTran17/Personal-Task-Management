@@ -37,11 +37,7 @@ const PRIORITY_OPTIONS = [
   { value: 'high', label: 'High' },
 ] as const;
 
-export default function EditTaskDialog({
-  isOpen,
-  onOpenChange,
-  task,
-}: EditTaskDialogProps) {
+export default function EditTaskDialog({ isOpen, onOpenChange, task }: EditTaskDialogProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<TaskStatus>('todo');
@@ -212,11 +208,7 @@ export default function EditTaskDialog({
 
           {/* Dialog Footer */}
           <DialogFooter className="gap-2">
-            <Button
-              type="button"
-              onClick={handleCancel}
-              variant="neutral"
-            >
+            <Button type="button" onClick={handleCancel} variant="neutral">
               Cancel
             </Button>
             <Button type="submit" variant="default">

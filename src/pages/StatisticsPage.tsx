@@ -46,13 +46,9 @@ export default function StatisticsPage() {
         <div className="border-2 border-black bg-white p-8">
           <div className="flex items-center gap-4 mb-4">
             <TrendingUp className="w-8 h-8 stroke-[2.5]" />
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight">
-              STATISTICS
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight">STATISTICS</h1>
           </div>
-          <p className="text-lg text-gray-700 font-medium">
-            Task overview and performance metrics
-          </p>
+          <p className="text-lg text-gray-700 font-medium">Task overview and performance metrics</p>
         </div>
 
         {/* Desktop View - Full Layout */}
@@ -203,9 +199,7 @@ export default function StatisticsPage() {
                 <TrendSection data={trend} />
               ) : (
                 <Card className="border-2 border-black p-8 text-center">
-                  <p className="text-gray-600 font-medium">
-                    Create tasks to see trend analysis
-                  </p>
+                  <p className="text-gray-600 font-medium">Create tasks to see trend analysis</p>
                 </Card>
               )}
             </TabsContent>

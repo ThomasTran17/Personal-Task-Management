@@ -1,19 +1,14 @@
-import { useState, useMemo, useCallback } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { KanbanSquare, BarChart3, ChevronLeft, ChevronRight, Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
+import { useState, useMemo, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { KanbanSquare, BarChart3, ChevronLeft, ChevronRight, Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { cn } from '@/lib/utils';
 
 interface NavItem {
   href: string;
   label: string;
-  iconType: "kanban" | "stats";
+  iconType: 'kanban' | 'stats';
 }
 
 interface SidebarProps {
@@ -25,7 +20,7 @@ const ICON_MAP = {
   stats: BarChart3,
 } as const;
 
-const getIcon = (iconType: "kanban" | "stats") => {
+const getIcon = (iconType: 'kanban' | 'stats') => {
   const Icon = ICON_MAP[iconType];
   return Icon ? <Icon size={20} /> : null;
 };
@@ -53,20 +48,20 @@ export function Sidebar({ items }: SidebarProps) {
     [items, pathname]
   );
 
-  const NavLink = ({ item }: { item: typeof navItems[0] }) => (
+  const NavLink = ({ item }: { item: (typeof navItems)[0] }) => (
     <Link
       to={item.href}
       onClick={closeMobile}
       className={cn(
-        "flex items-center justify-center font-semibold transition-all border-2 border-border rounded-base",
-        isCollapsed ? "px-3 py-3" : "px-4 py-3 justify-start gap-3",
+        'flex items-center justify-center font-semibold transition-all border-2 border-border rounded-base',
+        isCollapsed ? 'px-3 py-3' : 'px-4 py-3 justify-start gap-3',
         item.isActive
-          ? "bg-main text-main-foreground shadow-shadow"
-          : "bg-secondary-background text-foreground hover:bg-main hover:text-main-foreground hover:shadow-shadow"
+          ? 'bg-main text-main-foreground shadow-shadow'
+          : 'bg-secondary-background text-foreground hover:bg-main hover:text-main-foreground hover:shadow-shadow'
       )}
     >
       <div className="flex-shrink-0">{getIcon(item.iconType)}</div>
-      <span className={cn("transition-all duration-300", isCollapsed ? "hidden" : "block")}>
+      <span className={cn('transition-all duration-300', isCollapsed ? 'hidden' : 'block')}>
         {item.label}
       </span>
     </Link>
@@ -77,31 +72,26 @@ export function Sidebar({ items }: SidebarProps) {
       {/* Desktop Sidebar */}
       <aside
         className={cn(
-          "hidden lg:flex flex-col h-screen bg-background border-r-2 border-border sticky top-0 transition-all duration-300",
-          isCollapsed ? "w-20" : "w-64"
+          'hidden lg:flex flex-col h-screen bg-background border-r-2 border-border sticky top-0 transition-all duration-300',
+          isCollapsed ? 'w-20' : 'w-64'
         )}
       >
         {/* Header */}
         <div
           className={cn(
-            "flex items-center justify-between p-6 border-b-2 border-border transition-all duration-300",
-            isCollapsed && "flex-col gap-4"
+            'flex items-center justify-between p-6 border-b-2 border-border transition-all duration-300',
+            isCollapsed && 'flex-col gap-4'
           )}
         >
           <h1
             className={cn(
-              "text-2xl font-bold text-foreground transition-all duration-300",
-              isCollapsed && "hidden"
+              'text-2xl font-bold text-foreground transition-all duration-300',
+              isCollapsed && 'hidden'
             )}
           >
             Tasks
           </h1>
-          <Button
-            onClick={toggleCollapse}
-            variant="neutral"
-            size="icon"
-            className="h-10 w-10"
-          >
+          <Button onClick={toggleCollapse} variant="neutral" size="icon" className="h-10 w-10">
             {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
           </Button>
         </div>
@@ -116,14 +106,14 @@ export function Sidebar({ items }: SidebarProps) {
         {/* Footer */}
         <div
           className={cn(
-            "p-4 border-t-2 border-border bg-secondary-background transition-all duration-300",
-            isCollapsed && "flex flex-col items-center"
+            'p-4 border-t-2 border-border bg-secondary-background transition-all duration-300',
+            isCollapsed && 'flex flex-col items-center'
           )}
         >
           <p
             className={cn(
-              "text-sm font-semibold text-foreground transition-all duration-300",
-              isCollapsed && "hidden"
+              'text-sm font-semibold text-foreground transition-all duration-300',
+              isCollapsed && 'hidden'
             )}
           >
             © 2026 Task Manager
@@ -159,9 +149,7 @@ export function Sidebar({ items }: SidebarProps) {
 
           {/* Mobile Footer */}
           <div className="absolute bottom-0 left-0 right-0 p-4 border-t-2 border-border bg-secondary-background">
-            <p className="text-sm font-semibold text-foreground">
-              © 2026 Task Manager
-            </p>
+            <p className="text-sm font-semibold text-foreground">© 2026 Task Manager</p>
           </div>
         </SheetContent>
       </Sheet>
