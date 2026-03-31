@@ -16,7 +16,7 @@ export const useTitleBadge = () => {
 
     tasks.forEach((task) => {
       // Skip if task is done or no deadline
-      if (!task.dueDate || task.status === 'done') {
+      if (!task.dueDate || task.status === 'DONE') {
         return;
       }
 

@@ -25,21 +25,21 @@ interface AddTaskDialogProps {
 const INITIAL_FORM_STATE = {
   title: '',
   description: '',
-  status: 'todo' as TaskStatus,
-  priority: 'medium' as TaskPriority,
+  status: 'TODO' as TaskStatus,
+  priority: 'MEDIUM' as TaskPriority,
   dueDate: null as Date | null,
 };
 
 const STATUS_OPTIONS = [
-  { value: 'todo', label: 'To Do' },
-  { value: 'in-progress', label: 'In Progress' },
-  { value: 'done', label: 'Done' },
+  { value: 'TODO', label: 'To Do' },
+  { value: 'IN_PROGRESS', label: 'In Progress' },
+  { value: 'DONE', label: 'Done' },
 ] as const;
 
 const PRIORITY_OPTIONS = [
-  { value: 'low', label: 'Low' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'high', label: 'High' },
+  { value: 'LOW', label: 'Low' },
+  { value: 'MEDIUM', label: 'Medium' },
+  { value: 'HIGH', label: 'High' },
 ] as const;
 
 export default function AddTaskDialog({ isOpen, onOpenChange }: AddTaskDialogProps) {

@@ -25,7 +25,7 @@ export const usePeriodicDeadlineCheck = () => {
   // Process a single task for deadline notifications
   const processTaskDeadline = (task: Task): void => {
     // Guard clause: Skip if task is done or no deadline
-    if (!task.dueDate || task.status === 'done') {
+    if (!task.dueDate || task.status === 'DONE') {
       return;
     }
 

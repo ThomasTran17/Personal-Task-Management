@@ -16,6 +16,7 @@ export {
 } from './alert-dialog';
 export { Button, buttonVariants } from './button';
 export { Calendar } from './calendar';
+export { Checkbox } from './checkbox';
 export {
   Card,
   CardAction,

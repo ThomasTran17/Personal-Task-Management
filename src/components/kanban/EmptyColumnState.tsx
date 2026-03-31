@@ -9,7 +9,7 @@ interface EmptyColumnStateProps {
 export default function EmptyColumnState({ status, isFiltered }: EmptyColumnStateProps) {
   const getEmptyStateContent = () => {
     switch (status) {
-      case 'todo':
+      case 'TODO':
         return {
           icon: AlertCircle,
           title: 'No Tasks',
@@ -19,7 +19,7 @@ export default function EmptyColumnState({ status, isFiltered }: EmptyColumnStat
           textColor: 'text-red-700',
           iconColor: 'text-red-400',
         };
-      case 'in-progress':
+      case 'IN_PROGRESS':
         return {
           icon: Clock,
           title: 'Nothing Started',
@@ -31,7 +31,7 @@ export default function EmptyColumnState({ status, isFiltered }: EmptyColumnStat
           textColor: 'text-yellow-700',
           iconColor: 'text-yellow-400',
         };
-      case 'done':
+      case 'DONE':
         return {
           icon: CheckCircle2,
           title: 'No Completed Tasks',

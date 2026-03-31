@@ -1,7 +1,32 @@
 /**
  * API Response Types and Error Handling
  * Defines common interfaces for API communication
+ * Based on JSON:API standard (https://jsonapi.org/)
  */
+
+/**
+ * JSON:API Resource Object
+ * Represents a single resource with id, type, and attributes
+ * @template T - The attributes type
+ */
+export interface JsonApiResource<T> {
+  readonly type: string;
+  readonly id: string;
+  readonly attributes: T;
+  readonly links?: {
+    readonly self: string;
+  };
+}
+
+/**
+ * JSON:API Response Object
+ * Contains either a single resource or array of resources
+ * @template T - The attributes type
+ */
+export interface JsonApiResponse<T> {
+  readonly data: JsonApiResource<T> | readonly JsonApiResource<T>[];
+  readonly accessToken?: string;
+}
 
 /**
  * Standard API Response format
@@ -112,6 +137,27 @@ export interface User {
 }
 
 /**
+ * User attributes (from JSON:API resource attributes)
+ */
+export interface UserAttributes {
+  readonly email: string;
+  readonly firstName?: string;
+  readonly lastName?: string;
+  readonly displayName?: string;
+  readonly photoUrl?: string;
+  readonly isEmailVerified?: boolean;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+/**
+ * User with attributes flattened (id + attributes combined)
+ */
+export interface UserWithAttributes extends UserAttributes {
+  readonly id: string;
+}
+
+/**
  * Login request payload
  */
 export interface LoginRequest {
@@ -130,10 +176,11 @@ export interface RegisterRequest {
 
 /**
  * Login/Register response payload
+ * accessToken at top-level as per JSON:API with auth response
  */
 export interface AuthResponse {
-  readonly user: User;
-  readonly token: string;
+  readonly user: UserWithAttributes;
+  readonly accessToken: string;
   readonly refreshToken?: string;
   readonly expiresIn: number;
 }
@@ -166,4 +213,25 @@ export interface ResetPasswordRequest {
  */
 export interface RequestPasswordResetRequest {
   readonly email: string;
+}
+
+/**
+ * Task attributes (from JSON:API resource attributes)
+ */
+export interface TaskAttributes {
+  readonly userId: string;
+  readonly title: string;
+  readonly description?: string;
+  readonly status: 'TODO' | 'IN_PROGRESS' | 'DONE';
+  readonly priority: 'LOW' | 'MEDIUM' | 'HIGH';
+  readonly dueDate?: Date;
+  readonly createdAt: Date;
+  readonly updatedAt: Date;
+}
+
+/**
+ * Task with attributes flattened (id + attributes combined)
+ */
+export interface TaskWithAttributes extends TaskAttributes {
+  readonly id: string;
 }

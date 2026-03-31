@@ -24,22 +24,22 @@ interface EditTaskDialogProps {
 }
 
 const STATUS_OPTIONS = [
-  { value: 'todo', label: 'To Do' },
-  { value: 'in-progress', label: 'In Progress' },
-  { value: 'done', label: 'Done' },
+  { value: 'TODO', label: 'To Do' },
+  { value: 'IN_PROGRESS', label: 'In Progress' },
+  { value: 'DONE', label: 'Done' },
 ] as const;
 
 const PRIORITY_OPTIONS = [
-  { value: 'low', label: 'Low' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'high', label: 'High' },
+  { value: 'LOW', label: 'Low' },
+  { value: 'MEDIUM', label: 'Medium' },
+  { value: 'HIGH', label: 'High' },
 ] as const;
 
 export default function EditTaskDialog({ isOpen, onOpenChange, task }: EditTaskDialogProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [status, setStatus] = useState<TaskStatus>('todo');
-  const [priority, setPriority] = useState<TaskPriority>('medium');
+  const [status, setStatus] = useState<TaskStatus>('TODO');
+  const [priority, setPriority] = useState<TaskPriority>('MEDIUM');
   const [dueDate, setDueDate] = useState<Date | null>(null);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [updateTask] = useUpdateTaskMutation();
@@ -64,8 +64,8 @@ export default function EditTaskDialog({ isOpen, onOpenChange, task }: EditTaskD
   const resetForm = useCallback(() => {
     setTitle('');
     setDescription('');
-    setStatus('todo');
-    setPriority('medium');
+    setStatus('TODO');
+    setPriority('MEDIUM');
     setDueDate(null);
     setTouched({});
     clearErrors();
