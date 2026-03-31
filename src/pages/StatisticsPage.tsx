@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useGetTasksQuery } from '@/api/services/taskApi';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { TrendingUp, CheckCircle2, AlertTriangle, ListTodo } from 'lucide-react';
-import type { TaskStats, EfficiencyMetrics, TrendAnalysis } from '@/types/statistics';
 import {
   calculateTaskStats,
   calculateEfficiencyMetrics,
@@ -16,29 +15,16 @@ import { TrendSection } from '@/components/stats/TrendSection';
 
 export default function StatisticsPage() {
   const { data: taskData = [] } = useGetTasksQuery();
-  const tasks = Array.from(taskData);
-  const [stats, setStats] = useState<TaskStats>({
-    total: 0,
-    completed: 0,
-    overdue: 0,
-    completionRate: 0,
-  });
-  const [efficiency, setEfficiency] = useState<EfficiencyMetrics>({
-    leadTime: 0,
-    velocity: 0,
-    peakProductivityDay: 'N/A',
-    peakProductivityCount: 0,
-  });
-  const [trend, setTrend] = useState<TrendAnalysis>({
-    burndownData: [],
-    completionTrendData: [],
-  });
 
-  useEffect(() => {
-    setStats(calculateTaskStats(tasks));
-    setEfficiency(calculateEfficiencyMetrics(tasks));
-    setTrend(calculateTrendAnalysis(tasks));
-  }, [tasks]);
+  const { stats, efficiency, trend, tasks } = useMemo(() => {
+    const taskArray = Array.from(taskData);
+    return {
+      tasks: taskArray,
+      stats: calculateTaskStats(taskArray),
+      efficiency: calculateEfficiencyMetrics(taskArray),
+      trend: calculateTrendAnalysis(taskArray),
+    };
+  }, [taskData]);
 
   return (
     <main className="min-h-screen p-6 md:p-12">
