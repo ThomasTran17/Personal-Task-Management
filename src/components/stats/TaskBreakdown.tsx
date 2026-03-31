@@ -1,4 +1,4 @@
-import type { Task } from '@/types/task';
+import type { Task } from '@/types';
 import type { TaskBreakdownItemProps } from './TaskBreakdownItem';
 import { TaskBreakdownItem } from './TaskBreakdownItem';
 

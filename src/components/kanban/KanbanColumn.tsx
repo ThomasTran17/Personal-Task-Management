@@ -1,6 +1,5 @@
-import type { Task, TaskStatus } from '@/types/task';
-import TaskCardDraggable from '@/components/kanban/TaskCardDraggable';
-import EmptyColumnState from '@/components/kanban/EmptyColumnState';
+import type { Task, TaskStatus } from '@/types';
+import { TaskCardDraggable, EmptyColumnState } from '@/components';
 
 interface KanbanColumnProps {
   status: TaskStatus;

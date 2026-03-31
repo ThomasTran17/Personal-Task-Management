@@ -1,4 +1,4 @@
-import KanbanBoard from '@/components/kanban/KanbanBoard';
+import { KanbanBoard } from '@/components';
 
 export default function ListPage() {
   return (

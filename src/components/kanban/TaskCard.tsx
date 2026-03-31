@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import {
+  Card,
+  Button,
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -9,13 +9,17 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import EditTaskDialog from './EditTaskDialog';
-import type { Task } from '@/types/task';
+  EditTaskDialog,
+} from '@/components';
+import type { Task } from '@/types';
 import { Trash2, Edit2, Calendar, AlertCircle, Clock } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { getDeadlineStatus, getDeadlineStatusClass, formatDateTime } from '@/lib/deadlineHelpers';
-import { deadlineUpdateSignal } from '@/lib/deadlineUpdateSignal';
+import {
+  cn,
+  getDeadlineStatus,
+  getDeadlineStatusClass,
+  formatDateTime,
+  deadlineUpdateSignal,
+} from '@/lib';
 
 interface TaskCardProps {
   task: Task;

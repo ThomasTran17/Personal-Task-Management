@@ -5,19 +5,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import {
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useFormValidation } from '@/hooks/useFormValidation';
-import { useAddTaskMutation } from '@/api/services/taskApi';
-import type { TaskStatus, TaskPriority } from '@/types/task';
-import DatePicker from '@/components/ui/date-picker';
+  DatePicker,
+} from '@/components';
+import { useFormValidation } from '@/hooks';
+import { useAddTaskMutation } from '@/api';
+import type { TaskStatus, TaskPriority } from '@/types';
 
 interface AddTaskDialogProps {
   isOpen: boolean;

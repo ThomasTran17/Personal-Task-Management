@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components';
 
 interface NotificationStatus {
   apiSupported: boolean;

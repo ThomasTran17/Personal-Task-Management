@@ -1,17 +1,18 @@
 import { useMemo } from 'react';
-import { useGetTasksQuery } from '@/api/services/taskApi';
-import { Card } from '@/components/ui/card';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { TrendingUp, CheckCircle2, AlertTriangle, ListTodo } from 'lucide-react';
+import { useGetTasksQuery } from '@/api';
 import {
-  calculateTaskStats,
-  calculateEfficiencyMetrics,
-  calculateTrendAnalysis,
-} from '@/lib/statisticsHelpers';
-import { StatCard } from '@/components/stats/StatCard';
-import { TaskBreakdown } from '@/components/stats/TaskBreakdown';
-import { EfficiencySection } from '@/components/stats/EfficiencySection';
-import { TrendSection } from '@/components/stats/TrendSection';
+  Card,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  StatCard,
+  TaskBreakdown,
+  EfficiencySection,
+  TrendSection,
+} from '@/components';
+import { TrendingUp, CheckCircle2, AlertTriangle, ListTodo } from 'lucide-react';
+import { calculateTaskStats, calculateEfficiencyMetrics, calculateTrendAnalysis } from '@/lib';
 
 export default function StatisticsPage() {
   const { data: taskData = [] } = useGetTasksQuery();

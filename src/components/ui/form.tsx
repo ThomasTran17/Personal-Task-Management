@@ -12,9 +12,9 @@ import {
 
 import * as React from 'react';
 
-import { Label } from '@/components/ui/label';
+import { Label } from '@/components';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 const Form = FormProvider;
 

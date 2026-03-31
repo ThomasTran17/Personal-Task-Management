@@ -1,15 +1,15 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { useGetTasksQuery } from '@/api/services/taskApi';
-import type { Task } from '@/types/task';
-import { getTimeUntilDeadline } from '@/lib/deadlineHelpers';
-import { deadlineUpdateSignal } from '@/lib/deadlineUpdateSignal';
+import { useGetTasksQuery } from '@/api';
+import type { Task } from '@/types';
 import {
+  getTimeUntilDeadline,
+  deadlineUpdateSignal,
   handleUrgentDeadlineNotification,
   handleReminderDeadlineNotification,
   clearExpiredNotifications,
   clearUrgentNotificationIfExpired,
   clearReminderNotificationIfExpired,
-} from '@/lib/deadlineNotificationProcessor';
+} from '@/lib';
 
 const CHECK_INTERVAL = 60000; // Check every 1 minute
 

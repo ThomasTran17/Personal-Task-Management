@@ -1,10 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Sidebar } from '@/components/shared/Sidebar';
-import { BottomNav } from '@/components/shared/BottomNav';
-import { Toaster } from '@/components/ui/sonner';
-import ListPage from '@/pages/ListPage';
-import StatisticsPage from '@/pages/StatisticsPage';
-import { usePeriodicDeadlineCheck } from '@/hooks/usePeriodicDeadlineCheck';
+import { Sidebar, BottomNav, Toaster } from '@/components';
+import { ListPage, StatisticsPage } from '@/pages';
+import { usePeriodicDeadlineCheck } from '@/hooks';
 
 const navItems = [
   {

@@ -1,4 +1,4 @@
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components';
 
 export interface StatCardProps {
   icon: React.ReactNode;

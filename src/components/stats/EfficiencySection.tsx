@@ -1,5 +1,5 @@
-import { Card } from '@/components/ui/card';
-import type { EfficiencyMetrics } from '@/types/statistics';
+import { Card } from '@/components';
+import type { EfficiencyMetrics } from '@/types';
 import { Zap, TrendingUp, Calendar } from 'lucide-react';
 
 export interface EfficiencySectionProps {
