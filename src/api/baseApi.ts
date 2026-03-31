@@ -33,13 +33,14 @@ const baseQuery = fetchBaseQuery({
 });
 
 let isRefreshing = false;
-let failedQueue: (() => Promise<void>)[] = [];
+let refreshPromise: Promise<boolean> | null = null;
 
-const processQueue = async () => {
-  for (const promise of failedQueue) {
-    await promise();
-  }
-  failedQueue = [];
+/**
+ * Check if current route is login page to avoid infinite refresh loops
+ */
+const isOnLoginPage = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  return window.location.pathname === '/login';
 };
 
 /**
@@ -55,9 +56,26 @@ const baseQueryWithReauth: BaseQueryFn<FetchArgs | string, unknown, FetchBaseQue
 
   // Handle 401 Unauthorized - attempt token refresh
   if (result.error?.status === 401) {
-    if (!isRefreshing) {
-      isRefreshing = true;
+    // Don't retry refresh if already on login page or access token doesn't exist
+    const hasAccessToken = tokenManager.getToken();
+    if (!hasAccessToken || isOnLoginPage()) {
+      return result;
+    }
 
+    // If refresh is already in progress, wait for it to complete
+    if (isRefreshing && refreshPromise) {
+      const refreshSucceeded = await refreshPromise;
+      if (refreshSucceeded) {
+        // Token was refreshed successfully, retry the original request
+        result = await baseQuery(args, api, extraOptions);
+      }
+      // If refresh failed, return the 401 error
+      return result;
+    }
+
+    // Start token refresh process
+    isRefreshing = true;
+    refreshPromise = (async () => {
       try {
         // Attempt to refresh token using the refresh endpoint
         // The refresh token is automatically included in cookies
@@ -78,31 +96,34 @@ const baseQueryWithReauth: BaseQueryFn<FetchArgs | string, unknown, FetchBaseQue
 
           if (newAccessToken) {
             tokenManager.setToken(newAccessToken);
-            await processQueue();
-
-            // Retry original request with new token
-            result = await baseQuery(args, api, extraOptions);
+            return true; // Refresh succeeded
           }
-        } else {
-          // Refresh failed, clear tokens and redirect to login
-          tokenManager.clearTokens();
+        }
+
+        // Refresh failed, clear tokens and redirect to login
+        tokenManager.clearTokens();
+        if (!isOnLoginPage()) {
           window.location.href = '/login';
         }
+        return false;
       } catch (error) {
         console.error('Token refresh failed:', error);
         tokenManager.clearTokens();
-        window.location.href = '/login';
+        if (!isOnLoginPage()) {
+          window.location.href = '/login';
+        }
+        return false;
       } finally {
         isRefreshing = false;
+        refreshPromise = null;
       }
-    } else {
-      // If already refreshing, queue the failed request to retry later
-      await new Promise<void>((resolve) => {
-        failedQueue.push(async () => {
-          result = await baseQuery(args, api, extraOptions);
-          resolve();
-        });
-      });
+    })();
+
+    // Wait for refresh to complete
+    const refreshSucceeded = await refreshPromise;
+    if (refreshSucceeded) {
+      // Token was refreshed successfully, retry the original request
+      result = await baseQuery(args, api, extraOptions);
     }
   }
 
