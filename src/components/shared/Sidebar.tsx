@@ -1,9 +1,8 @@
 import { useState, useMemo, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { KanbanSquare, BarChart3, ChevronLeft, ChevronRight, Menu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
-import { cn } from '@/lib/utils';
+import { Button, Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components';
+import { cn } from '@/lib';
 
 interface NavItem {
   href: string;

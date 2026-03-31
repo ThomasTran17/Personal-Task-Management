@@ -3,7 +3,7 @@
  * Manages toast notification state for approaching deadlines
  */
 
-import type { NotificationState } from '@/types/notification';
+import type { NotificationState } from '@/types';
 
 /**
  * Global toast notification state - persists across re-renders

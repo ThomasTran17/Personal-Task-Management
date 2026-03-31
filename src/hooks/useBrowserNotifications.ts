@@ -1,8 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { useGetTasksQuery } from '@/api/services/taskApi';
-import { deadlineUpdateSignal } from '@/lib/deadlineUpdateSignal';
-import { setGlobalSwRegistration, updateBrowserBadge } from '@/lib/notificationHelpers';
-import { processTaskNotification } from '@/lib/notificationManager';
+import { useGetTasksQuery } from '@/api';
+import {
+  deadlineUpdateSignal,
+  setGlobalSwRegistration,
+  updateBrowserBadge,
+  processTaskNotification,
+} from '@/lib';
 
 /**
  * Hook to setup browser push notifications

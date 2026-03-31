@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useGetTasksQuery } from '@/api/services/taskApi';
-import { getTimeUntilDeadline, ONE_HOUR_MS, ONE_DAY_MS } from '@/lib/deadlineHelpers';
+import { useGetTasksQuery } from '@/api';
+import { getTimeUntilDeadline, ONE_HOUR_MS, ONE_DAY_MS } from '@/lib';
 
 /**
  * Hook to update page title with badge count of approaching deadlines

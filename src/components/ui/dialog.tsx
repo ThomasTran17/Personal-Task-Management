@@ -3,7 +3,7 @@ import { X } from 'lucide-react';
 
 import * as React from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 function Dialog({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;

@@ -3,10 +3,7 @@ import { Calendar as CalendarIcon, Clock } from 'lucide-react';
 
 import * as React from 'react';
 
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button, Calendar, Input, Popover, PopoverContent, PopoverTrigger } from '@/components';
 
 interface DatePickerProps {
   value?: Date | null;

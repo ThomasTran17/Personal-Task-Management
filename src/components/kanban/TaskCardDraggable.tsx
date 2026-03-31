@@ -1,5 +1,5 @@
-import type { Task, TaskStatus } from '@/types/task';
-import TaskCard from './TaskCard';
+import type { Task, TaskStatus } from '@/types';
+import { TaskCard } from '@/components';
 
 interface TaskCardDraggableProps {
   task: Task;

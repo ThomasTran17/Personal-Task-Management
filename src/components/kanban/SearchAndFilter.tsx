@@ -1,16 +1,16 @@
 import { useState, useCallback } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import {
+  Input,
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import type { TaskStatus, TaskPriority } from '@/types/task';
+} from '@/components';
+import type { TaskStatus, TaskPriority } from '@/types';
 import { Search, X, Plus, ChevronDown, ChevronUp } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 interface SearchAndFilterProps {
   onSearch: (query: string) => void;

@@ -12,27 +12,5 @@ export { tokenManager } from './tokenManager';
 // All types
 export * from './types';
 
-// Task API and hooks
-export {
-  taskApi,
-  useGetTasksQuery,
-  useGetTaskByIdQuery,
-  useAddTaskMutation,
-  useUpdateTaskMutation,
-  useDeleteTaskMutation,
-  useDeleteAllTasksMutation,
-  resetApiState,
-} from './services/taskApi';
-
-// Auth API and hooks
-export {
-  authApi,
-  useLoginMutation,
-  useRegisterMutation,
-  useLogoutMutation,
-  useGetProfileQuery,
-  useRefreshTokenMutation,
-  useChangePasswordMutation,
-  useRequestPasswordResetMutation,
-  useResetPasswordMutation,
-} from './services/authApi';
+// All API services and hooks
+export * from './services';

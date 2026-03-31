@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useUpdateTaskMutation, useGetTasksQuery } from '@/api/services/taskApi';
-import type { TaskStatus } from '@/types/task';
+import { useUpdateTaskMutation, useGetTasksQuery } from '@/api';
+import type { TaskStatus } from '@/types';
 import { toast } from 'sonner';
 
 interface DragState {

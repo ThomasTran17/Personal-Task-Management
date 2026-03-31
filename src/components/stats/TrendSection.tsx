@@ -1,5 +1,5 @@
-import { Card } from '@/components/ui/card';
-import type { TrendAnalysis } from '@/types/statistics';
+import { Card } from '@/components';
+import type { TrendAnalysis } from '@/types';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingDown, BarChart3 } from 'lucide-react';
 

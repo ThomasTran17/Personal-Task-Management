@@ -3,12 +3,7 @@
  * Manages notification state and business logic for handling urgent/reminder notifications
  */
 
-import type {
-  NotificationState,
-  TaskNotificationStatus,
-  NotificationPayload,
-} from '@/types/notification';
-import type { Task } from '@/types/task';
+import type { NotificationState, TaskNotificationStatus, NotificationPayload, Task } from '@/types';
 import { sendNotification, formatTimeUntilDeadline, formatDueTime } from './notificationHelpers';
 import { getTimeUntilDeadline, ONE_HOUR_MS, ONE_DAY_MS } from './deadlineHelpers';
 

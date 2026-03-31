@@ -12,9 +12,9 @@ import {
 
 import * as React from 'react';
 
-import { Label } from '@/components/ui/label';
+import { Label } from '@/components';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 const Form = FormProvider;
 
@@ -138,13 +138,4 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   );
 }
 
-export {
-  useFormField,
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-  FormField,
-};
+export { Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField };

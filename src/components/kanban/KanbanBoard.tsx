@@ -1,15 +1,22 @@
 import { useState, useCallback, useMemo } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useGetTasksQuery, useDeleteTaskMutation } from '@/api/services/taskApi';
-import type { TaskStatus, TaskPriority } from '@/types/task';
-import KanbanColumn from '@/components/kanban/KanbanColumn';
-import AddTaskDialog from '@/components/kanban/AddTaskDialog';
-import SearchAndFilter from '@/components/kanban/SearchAndFilter';
-import { sortTasksByDeadline } from '@/lib/deadlineHelpers';
-import { usePeriodicDeadlineCheck } from '@/hooks/usePeriodicDeadlineCheck';
-import { useBrowserNotifications } from '@/hooks/useBrowserNotifications';
-import { useTitleBadge } from '@/hooks/useTitleBadge';
-import { useDragAndDrop } from '@/hooks/useDragAndDrop';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  KanbanColumn,
+  AddTaskDialog,
+  SearchAndFilter,
+} from '@/components';
+import { useGetTasksQuery, useDeleteTaskMutation } from '@/api';
+import type { TaskStatus, TaskPriority } from '@/types';
+import { sortTasksByDeadline } from '@/lib';
+import {
+  usePeriodicDeadlineCheck,
+  useBrowserNotifications,
+  useTitleBadge,
+  useDragAndDrop,
+} from '@/hooks';
 
 const COLUMNS = [
   { status: 'todo' as TaskStatus, label: 'TO DO', bgColor: 'bg-red-100' },

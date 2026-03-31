@@ -3,7 +3,7 @@
  * Contains utility functions for formatting and updating browser notifications
  */
 
-import type { NotificationPayload } from '@/types/notification';
+import type { NotificationPayload } from '@/types';
 
 // Global service worker registration - persists across re-renders
 export let globalSwRegistration: ServiceWorkerRegistration | null = null;

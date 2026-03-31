@@ -1,11 +1,11 @@
-import type { Task } from '@/types/task';
 import type {
+  Task,
   TaskStats,
   EfficiencyMetrics,
   TrendAnalysis,
   BurndownDataPoint,
   CompletionTrendDataPoint,
-} from '@/types/statistics';
+} from '@/types';
 
 export function calculateTaskStats(tasks: Task[]): TaskStats {
   const now = new Date();
