@@ -6,13 +6,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { tokenManager } from './tokenManager';
+import { env } from '@/config';
 
 /**
  * Configure base query with Bearer token injection
  */
-const baseUrl =
-  (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? 'http://localhost:3000/api';
-const timeout = parseInt((import.meta.env.VITE_API_TIMEOUT as string | undefined) ?? '30000', 10);
+const baseUrl = env.VITE_API_BASE_URL;
+const timeout = env.VITE_API_TIMEOUT;
 
 const baseQuery = fetchBaseQuery({
   baseUrl,
