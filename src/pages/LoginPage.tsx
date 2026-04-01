@@ -43,13 +43,12 @@ export default function LoginPage() {
 
   const onSubmit = async (values: LoginFormValues) => {
     try {
-      const response = await login({
+      void (await login({
         email: values.email,
         password: values.password,
-      }).unwrap();
+      }).unwrap());
 
       toast.success('Login successful! Redirecting...');
-      console.log('Login response:', response);
 
       // Navegar para dashboard após login bem-sucedido
       void setTimeout(() => {
@@ -65,7 +64,6 @@ export default function LoginPage() {
 
   const handleSocialLogin = (provider: string) => {
     toast.info(`Social login with ${provider} coming soon!`);
-    console.log(`Login with ${provider}`);
   };
 
   return (
