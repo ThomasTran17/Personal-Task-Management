@@ -19,9 +19,9 @@ import {
 } from '@/hooks';
 
 const COLUMNS = [
-  { status: 'todo' as TaskStatus, label: 'TO DO', bgColor: 'bg-red-100' },
-  { status: 'in-progress' as TaskStatus, label: 'IN PROGRESS', bgColor: 'bg-yellow-100' },
-  { status: 'done' as TaskStatus, label: 'DONE', bgColor: 'bg-green-100' },
+  { status: 'TODO' as TaskStatus, label: 'TO DO', bgColor: 'bg-red-100' },
+  { status: 'IN_PROGRESS' as TaskStatus, label: 'IN PROGRESS', bgColor: 'bg-yellow-100' },
+  { status: 'DONE' as TaskStatus, label: 'DONE', bgColor: 'bg-green-100' },
 ] as const;
 
 export default function KanbanBoard() {
@@ -66,7 +66,7 @@ export default function KanbanBoard() {
     (status: TaskStatus) => {
       const tasksByStatus = filteredTasks.filter((task) => task.status === status);
       // Sort by deadline for todo and in-progress, keep as-is for done
-      if (status === 'todo' || status === 'in-progress') {
+      if (status === 'TODO' || status === 'IN_PROGRESS') {
         return sortTasksByDeadline(tasksByStatus);
       }
       return tasksByStatus;
@@ -125,7 +125,7 @@ export default function KanbanBoard() {
         {/* Mobile Tabs View */}
         <div className="lg:hidden">
           <Tabs
-            value={filterStatus === 'all' ? 'todo' : filterStatus}
+            value={filterStatus === 'all' ? 'TODO' : filterStatus}
             onValueChange={(value) => setFilterStatus(value as TaskStatus)}
           >
             <TabsList className="grid w-full grid-cols-3 mb-6">

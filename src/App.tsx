@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Sidebar, BottomNav, Toaster } from '@/components';
-import { ListPage, StatisticsPage } from '@/pages';
+import { LoginPage, ListPage, StatisticsPage } from '@/pages';
 import { usePeriodicDeadlineCheck } from '@/hooks';
 
 const navItems = [
@@ -22,16 +22,24 @@ export default function App() {
 
   return (
     <Router>
-      <div className="flex h-screen">
-        <Sidebar items={navItems} />
-        <main className="flex-1 overflow-auto pb-24 lg:pb-0">
-          <Routes>
-            <Route path="/" element={<ListPage />} />
-            <Route path="/statistics" element={<StatisticsPage />} />
-          </Routes>
-        </main>
-        <BottomNav items={navItems} />
-      </div>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/*"
+          element={
+            <div className="flex h-screen">
+              <Sidebar items={navItems} />
+              <main className="flex-1 overflow-auto pb-24 lg:pb-0">
+                <Routes>
+                  <Route path="/" element={<ListPage />} />
+                  <Route path="/statistics" element={<StatisticsPage />} />
+                </Routes>
+              </main>
+              <BottomNav items={navItems} />
+            </div>
+          }
+        />
+      </Routes>
       <Toaster />
     </Router>
   );

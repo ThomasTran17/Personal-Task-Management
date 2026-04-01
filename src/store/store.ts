@@ -17,7 +17,20 @@ export const store = configureStore({
       serializableCheck: {
         // RTK Query actions are non-serializable by design
         ignoredActions: [baseApi.util.resetApiState.type],
-        ignoredPaths: [baseApi.reducerPath],
+        ignoredActionPaths: [
+          'payload.createdAt',
+          'payload.updatedAt',
+          'payload.dueDate',
+          /^payload\.\d+\.createdAt$/,
+          /^payload\.\d+\.updatedAt$/,
+          /^payload\.\d+\.dueDate$/,
+          'meta.baseQueryMeta.request',
+          'meta.baseQueryMeta.response',
+          'meta.baseQueryMeta',
+          /^payload\.patches\.\d+\.value$/,
+          'payload.patches',
+        ],
+        ignoredPaths: [baseApi.reducerPath, /createdAt$/, /updatedAt$/, /dueDate$/],
       },
     }).concat(baseApi.middleware),
 });

@@ -1,47 +1,68 @@
 /**
  * Task Endpoints
  * Defines all task-related API operations with automatic cache invalidation
+ * Implements JSON:API standard with transformResponse for data extraction
  */
 
-import { baseApi } from '../baseApi';
+import { baseApi } from '@/api';
+import type { JsonApiResource, JsonApiResponse, TaskAttributes } from '@/api';
 import type { Task } from '@/types/task';
 
 interface CreateTaskPayload {
   readonly title: string;
   readonly description?: string;
-  readonly priority: 'low' | 'medium' | 'high';
+  readonly priority: 'LOW' | 'MEDIUM' | 'HIGH';
   readonly dueDate?: string;
-  readonly status?: 'todo' | 'in-progress' | 'done';
+  readonly status?: 'TODO' | 'IN_PROGRESS' | 'DONE';
 }
 
 interface UpdateTaskPayload {
   readonly title?: string;
   readonly description?: string;
-  readonly priority?: 'low' | 'medium' | 'high';
+  readonly priority?: 'LOW' | 'MEDIUM' | 'HIGH';
   readonly dueDate?: string;
-  readonly status?: 'todo' | 'in-progress' | 'done';
+  readonly status?: 'TODO' | 'IN_PROGRESS' | 'DONE';
+}
+
+/**
+ * Helper function to transform TaskAttributes (string dates) to Task (Date objects)
+ * Keeps dates as strings to avoid Redux serialization issues if needed
+ */
+function transformTaskAttributes(attrs: TaskAttributes, id: string): Task {
+  return {
+    id,
+    title: attrs.title,
+    description: attrs.description,
+    status: attrs.status,
+    priority: attrs.priority,
+    dueDate: attrs.dueDate ? new Date(attrs.dueDate) : undefined,
+    createdAt: new Date(attrs.createdAt),
+    updatedAt: new Date(attrs.updatedAt),
+  };
 }
 
 /**
  * Task API endpoints
  * Uses providesTags for query cache and invalidatesTags for mutation cache invalidation
+ * Implements JSON:API transformResponse pattern
  */
 export const taskApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     /**
      * Get all tasks with optional filtering
+     * Transforms JSON:API array response to Task array
      */
     getTasks: builder.query<readonly Task[], void>({
       query: () => '/tasks',
-      transformResponse: (response: unknown): readonly Task[] => {
-        const data = response as { readonly data: readonly Task[] };
-        // Transform date strings to Date objects
-        return data.data.map((task) => ({
-          ...task,
-          createdAt: new Date(task.createdAt),
-          updatedAt: new Date(task.updatedAt),
-          dueDate: task.dueDate ? new Date(task.dueDate) : undefined,
-        }));
+      transformResponse: (response: JsonApiResponse<TaskAttributes>): readonly Task[] => {
+        // Handle array of resources
+        if (!Array.isArray(response.data)) {
+          throw new Error('getTasks response should contain array of task resources');
+        }
+
+        return response.data.map((resource: JsonApiResource<TaskAttributes>) =>
+          transformTaskAttributes(resource.attributes, resource.id)
+        );
       },
       providesTags: (result) =>
         result
@@ -54,17 +75,18 @@ export const taskApi = baseApi.injectEndpoints({
 
     /**
      * Get single task by ID
+     * Transforms JSON:API single resource response to Task
      */
     getTaskById: builder.query<Task, string>({
       query: (id) => `/tasks/${id}`,
-      transformResponse: (response: unknown): Task => {
-        const data = response as { readonly data: Task };
-        return {
-          ...data.data,
-          createdAt: new Date(data.data.createdAt),
-          updatedAt: new Date(data.data.updatedAt),
-          dueDate: data.data.dueDate ? new Date(data.data.dueDate) : undefined,
-        };
+      transformResponse: (response: JsonApiResponse<TaskAttributes>): Task => {
+        // Handle single resource
+        if (Array.isArray(response.data)) {
+          throw new Error('getTaskById response should contain single task resource');
+        }
+
+        const resource = response.data as JsonApiResource<TaskAttributes>;
+        return transformTaskAttributes(resource.attributes, resource.id);
       },
       providesTags: (result) => (result ? [{ type: 'Task' as const, id: result.id }] : []),
     }),
@@ -79,14 +101,14 @@ export const taskApi = baseApi.injectEndpoints({
         method: 'POST',
         body: payload,
       }),
-      transformResponse: (response: unknown): Task => {
-        const data = response as { readonly data: Task };
-        return {
-          ...data.data,
-          createdAt: new Date(data.data.createdAt),
-          updatedAt: new Date(data.data.updatedAt),
-          dueDate: data.data.dueDate ? new Date(data.data.dueDate) : undefined,
-        };
+      transformResponse: (response: JsonApiResponse<TaskAttributes>): Task => {
+        // Handle single resource
+        if (Array.isArray(response.data)) {
+          throw new Error('addTask response should contain single task resource');
+        }
+
+        const resource = response.data as JsonApiResource<TaskAttributes>;
+        return transformTaskAttributes(resource.attributes, resource.id);
       },
       invalidatesTags: [{ type: 'Task', id: 'LIST' }],
       // Optimistic update: add task to cache before server response
@@ -97,13 +119,18 @@ export const taskApi = baseApi.injectEndpoints({
             const newTask: Task = {
               id: `temp-${Date.now()}`,
               title: arg.title,
-              description: arg.description,
+              description: arg.description ?? '',
               priority: arg.priority,
-              status: arg.status ?? 'todo',
-              dueDate: arg.dueDate ? new Date(arg.dueDate) : undefined,
+              status: arg.status ?? 'TODO',
               createdAt: new Date(),
               updatedAt: new Date(),
             };
+
+            if (arg.dueDate) {
+              newTask.dueDate = new Date(arg.dueDate);
+            }
+
+            console.log('Optimistically adding task to cache:', newTask);
             // @ts-expect-error - draft is mutable in RTK Query
             // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             draft.push(newTask);
@@ -139,14 +166,14 @@ export const taskApi = baseApi.injectEndpoints({
         method: 'PUT',
         body: updates,
       }),
-      transformResponse: (response: unknown): Task => {
-        const data = response as { readonly data: Task };
-        return {
-          ...data.data,
-          createdAt: new Date(data.data.createdAt),
-          updatedAt: new Date(data.data.updatedAt),
-          dueDate: data.data.dueDate ? new Date(data.data.dueDate) : undefined,
-        };
+      transformResponse: (response: JsonApiResponse<TaskAttributes>): Task => {
+        // Handle single resource
+        if (Array.isArray(response.data)) {
+          throw new Error('updateTask response should contain single task resource');
+        }
+
+        const resource = response.data as JsonApiResource<TaskAttributes>;
+        return transformTaskAttributes(resource.attributes, resource.id);
       },
       invalidatesTags: (result, _error, { id }) => [
         { type: 'Task', id },

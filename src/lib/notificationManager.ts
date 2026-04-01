@@ -90,7 +90,7 @@ export const processTaskNotification = (
   task: Task,
   currentTime?: number
 ): TaskNotificationStatus => {
-  if (!task.dueDate || task.status === 'done') {
+  if (!task.dueDate || task.status === 'DONE') {
     clearNotificationState(task.id);
     return { isUrgent: false, isUpcoming: false };
   }

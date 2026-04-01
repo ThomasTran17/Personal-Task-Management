@@ -26,20 +26,19 @@ interface TaskCardProps {
   onDelete: (id: string) => void;
 }
 
-const priorityColors = {
-  low: 'bg-blue-100 text-blue-800 border-blue-300',
-  medium: 'bg-orange-100 text-orange-800 border-orange-300',
-  high: 'bg-red-100 text-red-800 border-red-300',
+const priorityColors: Record<'LOW' | 'MEDIUM' | 'HIGH', string> = {
+  LOW: 'bg-blue-100 text-blue-800 border-blue-300',
+  MEDIUM: 'bg-orange-100 text-orange-800 border-orange-300',
+  HIGH: 'bg-red-100 text-red-800 border-red-300',
 };
 
 export default function TaskCard({ task, onDelete }: TaskCardProps) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [signalCurrentTime, setSignalCurrentTime] = useState<number | undefined>(undefined); // Timestamp from signal
-
   // Subscribe to deadline update signals + periodic timer
   useEffect(() => {
-    if (!task.dueDate || task.status === 'done') {
+    if (!task.dueDate || task.status === 'DONE') {
       return;
     }
 
@@ -131,7 +130,7 @@ export default function TaskCard({ task, onDelete }: TaskCardProps) {
               priorityColors[task.priority]
             )}
           >
-            {task.priority.toUpperCase()}
+            {task.priority}
           </span>
 
           {/* Action Buttons */}

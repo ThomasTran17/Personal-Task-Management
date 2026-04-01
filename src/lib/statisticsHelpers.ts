@@ -10,9 +10,9 @@ import type {
 export function calculateTaskStats(tasks: Task[]): TaskStats {
   const now = new Date();
 
-  const completed = tasks.filter((task) => task.status === 'done').length;
+  const completed = tasks.filter((task) => task.status === 'DONE').length;
   const overdue = tasks.filter(
-    (task) => task.status !== 'done' && task.dueDate && new Date(task.dueDate) < now
+    (task) => task.status !== 'DONE' && task.dueDate && new Date(task.dueDate) < now
   ).length;
 
   const completionRate = tasks.length > 0 ? Math.round((completed / tasks.length) * 100) : 0;
@@ -29,7 +29,7 @@ export function calculateTaskStats(tasks: Task[]): TaskStats {
  * Calculate efficiency metrics based on task completion history
  */
 export function calculateEfficiencyMetrics(tasks: Task[]): EfficiencyMetrics {
-  const completedTasks = tasks.filter((task) => task.status === 'done');
+  const completedTasks = tasks.filter((task) => task.status === 'DONE');
 
   // Calculate Lead Time (average days to complete)
   const leadTime = calculateLeadTime(completedTasks);
@@ -141,7 +141,7 @@ function calculateBurndownData(tasks: Task[]): BurndownDataPoint[] {
     if (createdDate >= thirtyDaysAgo) {
       dates.add(formatDate(createdDate));
     }
-    if (task.status === 'done') {
+    if (task.status === 'DONE') {
       const updatedDate = new Date(task.updatedAt);
       if (updatedDate >= thirtyDaysAgo) {
         dates.add(formatDate(updatedDate));
@@ -155,7 +155,7 @@ function calculateBurndownData(tasks: Task[]): BurndownDataPoint[] {
   return sortedDates.map((date) => {
     const dateObj = new Date(date);
     const completed = tasks.filter((task) => {
-      if (task.status !== 'done') return false;
+      if (task.status !== 'DONE') return false;
       const completedDate = new Date(task.updatedAt);
       return completedDate <= dateObj;
     }).length;
@@ -178,7 +178,7 @@ function calculateBurndownData(tasks: Task[]): BurndownDataPoint[] {
  * Shows how many tasks were completed each day in the last 7 days
  */
 function calculateCompletionTrendData(tasks: Task[]): CompletionTrendDataPoint[] {
-  const completedTasks = tasks.filter((task) => task.status === 'done');
+  const completedTasks = tasks.filter((task) => task.status === 'DONE');
 
   if (completedTasks.length === 0) {
     return generateEmptySevenDays();

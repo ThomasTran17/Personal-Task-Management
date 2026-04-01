@@ -34,7 +34,7 @@ export const getDeadlineStatus = (
   status: string,
   currentTime?: number
 ): DeadlineStatus => {
-  if (!dueDate || status === 'done') {
+  if (!dueDate || status === 'DONE') {
     return { isOverdue: false, isDueSoon: false, isUrgent: false };
   }
 

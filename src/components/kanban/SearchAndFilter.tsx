@@ -24,16 +24,16 @@ interface SearchAndFilterProps {
 
 const STATUS_OPTIONS = [
   { value: 'all', label: 'All Status' },
-  { value: 'todo', label: 'To Do' },
-  { value: 'in-progress', label: 'In Progress' },
-  { value: 'done', label: 'Done' },
+  { value: 'TODO', label: 'To Do' },
+  { value: 'IN_PROGRESS', label: 'In Progress' },
+  { value: 'DONE', label: 'Done' },
 ] as const;
 
 const PRIORITY_OPTIONS = [
   { value: 'all', label: 'All Priority' },
-  { value: 'low', label: 'Low' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'high', label: 'High' },
+  { value: 'LOW', label: 'Low' },
+  { value: 'MEDIUM', label: 'Medium' },
+  { value: 'HIGH', label: 'High' },
 ] as const;
 
 export default function SearchAndFilter({

@@ -1,6 +1,6 @@
 import type { Task } from '@/types';
-import type { TaskBreakdownItemProps } from './TaskBreakdownItem';
-import { TaskBreakdownItem } from './TaskBreakdownItem';
+import type { TaskBreakdownItemProps } from '@/components';
+import { TaskBreakdownItem } from '@/components';
 
 export interface TaskBreakdownProps {
   tasks: Task[];
@@ -13,19 +13,19 @@ export function TaskBreakdown({ tasks }: TaskBreakdownProps) {
   const breakdownItems: TaskBreakdownItemProps[] = [
     {
       label: 'To Do',
-      count: getTaskCountByStatus('todo'),
+      count: getTaskCountByStatus('TODO'),
       borderColor: 'border-gray-300',
       bgColor: 'bg-gray-50',
     },
     {
       label: 'In Progress',
-      count: getTaskCountByStatus('in-progress'),
+      count: getTaskCountByStatus('IN_PROGRESS'),
       borderColor: 'border-yellow-300',
       bgColor: 'bg-yellow-50',
     },
     {
       label: 'Completed',
-      count: getTaskCountByStatus('done'),
+      count: getTaskCountByStatus('DONE'),
       borderColor: 'border-green-300',
       bgColor: 'bg-green-50',
     },
