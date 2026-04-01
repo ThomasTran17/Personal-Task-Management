@@ -67,9 +67,8 @@ export function TableRow({ className, ...props }: React.HTMLAttributes<HTMLTable
   return (
     <tr
       className={cn(
-        'border-b-2 border-border',
+        'border-t-2 border-border',
         'transition-all',
-        'hover:bg-main/10',
         'data-[state=selected]:bg-main/20',
         className
       )}
@@ -132,11 +131,12 @@ export function SubtaskTableRow({
     <tr
       className={cn(
         'border-b-2 border-border',
-        'bg-secondary-background/50',
+        'bg-white',
         'transition-all',
         'hover:bg-main/10',
-        'before:absolute before:w-10 before:h-[2px]',
-        'before:bg-border before:-left-10 before:top-1/2',
+        // Connector Branch: Horizontal line from vertical stem to subtask row
+        'before:absolute before:w-12 before:h-[1px]',
+        'before:bg-border before:-left-12 before:top-1/2',
         'before:-translate-y-1/2',
         className
       )}
@@ -162,14 +162,8 @@ export function SubtaskContainer({
   return (
     <div
       className={cn(
-        'relative ms-10',
-        // Vertical stem: Creates the vertical line of the L-shape
-        // Coordinate System:
-        // - Wrapped with relative to serve as anchor for absolute positioning
-        // - ms-10 provides 40px left margin for visual indentation/depth
-        // Terminator Logic:
-        // - If isLast=true: stem only goes from top to bottom-1/2 (stops at branch)
-        // - If isLast=false: stem goes full height (continues down for more children)
+        'relative ms-10 my-5',
+        ' border border-border',
         isLast
           ? 'before:absolute before:left-0 before:top-0 before:bottom-1/2 before:w-[4px] '
           : 'before:absolute before:-start-6 before:top-0 before:bottom-0 before:w-[4px] ',
@@ -203,12 +197,10 @@ export function ExpandableTaskRow({
     <>
       <tr
         className={cn(
-          'border-b-2 border-border',
-          // Primary Sidebar: 3px left border for visual prominence (Neubrutalism hard edge)
+          'border-y-2 border-border',
           'border-s-[2px] border-s-border',
           'transition-all',
           'hover:bg-main/10',
-          // Relative positioning ensures child SubtaskContainer connects correctly
           'relative',
           className
         )}
