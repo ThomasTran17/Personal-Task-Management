@@ -5,14 +5,14 @@
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { tokenManager } from './tokenManager';
-import { env } from '@/config';
+import { tokenManager } from '@/api';
+import { config } from '@/config';
 
 /**
  * Configure base query with Bearer token injection
  */
-const baseUrl = env.VITE_API_BASE_URL;
-const timeout = env.VITE_API_TIMEOUT;
+const baseUrl = config.apiUrl;
+const timeout = config.apiTimeout;
 
 const baseQuery = fetchBaseQuery({
   baseUrl,

@@ -4,8 +4,8 @@
  * Implements JSON:API standard with transformResponse for data extraction
  */
 
-import { baseApi } from '../baseApi';
-import type { JsonApiResource, JsonApiResponse, TaskAttributes } from '../types';
+import { baseApi } from '@/api';
+import type { JsonApiResource, JsonApiResponse, TaskAttributes } from '@/api';
 import type { Task } from '@/types/task';
 
 interface CreateTaskPayload {

@@ -4,7 +4,7 @@
  * Note: Refresh token is stored in HTTP-only cookie by the server
  */
 
-import type { TokenData } from './types';
+import type { TokenData } from '@/api';
 
 const TOKEN_KEY = 'api_token';
 const TOKEN_EXPIRY_KEY = 'api_token_expiry';

@@ -1,4 +1,4 @@
-import type { TaskStatus } from '@/types/task';
+import type { TaskStatus } from '@/types';
 import { CheckCircle2, Clock, AlertCircle } from 'lucide-react';
 
 interface EmptyColumnStateProps {

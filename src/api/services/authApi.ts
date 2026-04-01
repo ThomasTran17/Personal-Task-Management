@@ -5,8 +5,7 @@
  * Note: Refresh token is stored in HTTP-only cookie by the server
  */
 
-import { baseApi } from '../baseApi';
-import { tokenManager } from '../tokenManager';
+import { baseApi, tokenManager } from '@/api';
 import type {
   AuthResponse,
   ChangePasswordRequest,
@@ -18,7 +17,7 @@ import type {
   ResetPasswordRequest,
   UserAttributes,
   UserWithAttributes,
-} from '../types';
+} from '@/api';
 
 /**
  * Auth API service using RTK Query's injectEndpoints pattern

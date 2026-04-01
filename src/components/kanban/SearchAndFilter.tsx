@@ -31,9 +31,9 @@ const STATUS_OPTIONS = [
 
 const PRIORITY_OPTIONS = [
   { value: 'all', label: 'All Priority' },
-  { value: 'low', label: 'Low' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'high', label: 'High' },
+  { value: 'LOW', label: 'Low' },
+  { value: 'MEDIUM', label: 'Medium' },
+  { value: 'HIGH', label: 'High' },
 ] as const;
 
 export default function SearchAndFilter({
