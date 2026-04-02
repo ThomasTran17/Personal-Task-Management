@@ -53,7 +53,9 @@ export function Table({ className, ...props }: React.HTMLAttributes<HTMLTableEle
       <table
         className={cn(
           'w-full caption-bottom text-sm',
-          'border-2 border-border rounded-base',
+          'table-fixed',
+          'border-separate border-spacing-0',
+          'border-0',
           className
         )}
         {...props}
@@ -71,7 +73,7 @@ export function TableHeader({
     <thead
       className={cn(
         'text-main-foreground',
-        'border-b-2 border-l-2 border-border',
+        'border-b-1 border-l-1 border-table-border',
         'sticky top-0 z-10',
         className
       )}
@@ -107,10 +109,7 @@ export function TableFooter({
 // Table Row - with hard borders and hover state (Neubrutalism)
 export function TableRow({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) {
   return (
-    <tr
-      className={cn('border-t-2', 'transition-all', 'data-[state=selected]:bg-main/20', className)}
-      {...props}
-    />
+    <tr className={cn('border-t-1 border-table-border', 'transition-all', className)} {...props} />
   );
 }
 
@@ -122,8 +121,10 @@ export function TableHead({ className, ...props }: React.ThHTMLAttributes<HTMLTa
         'h-12 ps-4 pe-4',
         'text-left align-middle',
         'font-weight-base font-base',
+        'truncate max-w-0',
         'text-foreground',
         '[&:has([role=checkbox])]:pe-0',
+        'border-r-1 border-t-1 first:border-l-1 border-table-border',
         className
       )}
       {...props}
@@ -140,6 +141,7 @@ export function TableCell({ className, ...props }: React.TdHTMLAttributes<HTMLTa
         'align-middle',
         'truncate max-w-0',
         '[&:has([role=checkbox])]:pe-0',
+        'border-r-1 border-t-1 first:border-l-1 border-table-border',
         className
       )}
       {...props}
@@ -186,11 +188,10 @@ export function SubtaskTableRow({
     >
       <td
         className={cn(
-          'ps-4 pe-4 py-2',
+          // 'ps-4 pe-4 py-2',
           'align-middle',
           'truncate max-w-0',
-          'border-r-2',
-          'w-[5%]',
+          'border-r-3',
           'relative',
           getStatusBorderRightColor(status)
         )}
@@ -227,7 +228,7 @@ export function SubtaskContainer({
   ...props
 }: SubtaskContainerProps) {
   return (
-    <div className={cn('relative py-5 z-10', className)} {...props}>
+    <div className={cn('py-6', className)} {...props}>
       {children}
     </div>
   );
@@ -264,9 +265,8 @@ export function ExpandableTaskRow({
     <>
       <tr
         className={cn(
-          'border-y-2 border-border',
+          'border-y-1 border-table-border',
           'border-s-3',
-          getStatusBorderLeftColor(status),
           'transition-all',
           'hover:bg-main/10',
           'relative',
@@ -276,7 +276,13 @@ export function ExpandableTaskRow({
       >
         {/* First cell with expand button and content together */}
         {firstChildProps && (
-          <TableCell className={firstChildProps?.className}>
+          <TableCell
+            className={cn(
+              getStatusBorderLeftColor(status),
+              'first:border-l-3',
+              firstChildProps?.className
+            )}
+          >
             <div className="flex items-center gap-2">
               {hasSubtasks && (
                 <button
@@ -320,7 +326,6 @@ export function SubtaskTableHeader({
         'border-l-3 border-r-0',
         getStatusBorderLeftColor(parentStatus),
         'text-xs text-foreground/60',
-        // z-9 ensures headers stay below sticky main TableHeader (z-10)
         'sticky top-0 z-9',
         className
       )}
@@ -396,17 +401,18 @@ export function AddTaskRow({
       )}
       {...props}
     >
-      <td
-        className={cn(
-          'ps-4 pe-4 py-2',
-          'align-middle',
-          'truncate max-w-0',
-          'border-r-2',
-          'w-[5%]',
-          getStatusBorderRightColor(parentStatus)
-        )}
-      />
-      <TableCell colSpan={6} className="ps-0 pe-0">
+      {parentStatus && (
+        <td
+          className={cn(
+            'ps-4 pe-4 py-2',
+            'align-middle',
+            'truncate max-w-0',
+            'border-r-3',
+            getStatusBorderRightColor(parentStatus)
+          )}
+        />
+      )}
+      <TableCell colSpan={6} className="ps-0 pe-0 border-b-1">
         {isEditing ? (
           <input
             ref={inputRef}

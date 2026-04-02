@@ -287,13 +287,11 @@ export default function TaskList() {
 
                       {/* Subtasks Container - L-shaped visual connectors */}
                       {hasSubtasks && isExpanded && (
-                        <TableRow
-                          className={cn(
-                            'border-b-0 border-l-1',
-                            getStatusBorderLeftColor(task.status)
-                          )}
-                        >
-                          <TableCell colSpan={7} className="p-0">
+                        <TableRow className={cn('border-b-0 border-l-1 p-0')}>
+                          <TableCell
+                            colSpan={6}
+                            className={cn('p-0 border-r-0', getStatusBorderLeftColor(task.status))}
+                          >
                             {(() => {
                               const midIndex = (subtasks.length - 1) >> 1;
                               const isSingleSubtask = subtasks.length === 1;
@@ -304,20 +302,19 @@ export default function TaskList() {
                                   parentStatus={task.status}
                                 >
                                   {/* Subtask Table Headers */}
-                                  <table className="w-full border-separate border-spacing-0">
+                                  <table className="w-full border-separate border-spacing-0 table-fixed">
                                     <SubtaskTableHeader parentStatus={task.status}>
                                       <TableRow>
                                         <TableHead
                                           className={cn(
-                                            'ps-4 pe-4 py-2',
                                             'align-middle',
-                                            'truncate max-w-0',
-                                            'border-r-2',
+                                            'border-r-3 first:border-l-0 first:border-t-0',
+                                            'p-0',
                                             getStatusBorderRightColor(task.status),
-                                            'w-[5%]'
+                                            'w-[3%]'
                                           )}
                                         />
-                                        <TableHead className="w-[35%]">Tiêu đề</TableHead>
+                                        <TableHead className="w-[37%]">Tiêu đề</TableHead>
                                         <TableHead className="w-[20%]">Mô tả</TableHead>
                                         <TableHead className="w-[15%]">Trạng thái</TableHead>
                                         <TableHead className="w-[15%]">Ưu tiên</TableHead>
@@ -357,7 +354,12 @@ export default function TaskList() {
                                                   : 'Thấp'}
                                             </span>
                                           </TableCell>
-                                          <TableCell></TableCell>
+                                          <TableCell>
+                                            <span>Ưu tiên</span>
+                                          </TableCell>
+                                          <TableCell>
+                                            <span>Hạn chót</span>
+                                          </TableCell>
                                         </SubtaskTableRow>
                                       ))}
                                       <AddTaskRow
@@ -378,6 +380,9 @@ export default function TaskList() {
                     </React.Fragment>
                   );
                 })}
+                <AddTaskRow onAddClick={() => console.warn('Add subtask clicked')}>
+                  + Thêm subtask
+                </AddTaskRow>
               </TableBody>
             </Table>
           </div>
