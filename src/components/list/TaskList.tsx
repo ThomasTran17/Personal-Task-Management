@@ -64,7 +64,7 @@ export default function TaskList() {
       id: 'task-1',
       title: 'Setup Project Infrastructure',
       description: 'Initialize database, API setup, and deployment pipeline',
-      status: 'IN_PROGRESS',
+      status: 'DONE',
       priority: 'HIGH',
       createdAt: new Date('2026-03-15'),
       updatedAt: new Date('2026-03-20'),
@@ -336,7 +336,7 @@ export default function TaskList() {
                                       isLast={index === subtasks.length - 1}
                                       status={subtask.status}
                                       parentStatus={task.status}
-                                      // className={index === 1 ? 'relative' : ''}
+                                      showConnector={index === Math.ceil(subtasks.length / 2) - 1}
                                     >
                                       <TableCell className="text-sm">{subtask.title}</TableCell>
                                       <TableCell>

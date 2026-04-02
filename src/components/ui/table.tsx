@@ -155,6 +155,7 @@ export function TableCaption({
 interface SubtaskRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   isLast?: boolean;
   isExpanded?: boolean;
+  showConnector?: boolean;
   status?: TaskStatus;
   parentStatus?: TaskStatus;
 }
@@ -163,6 +164,7 @@ export function SubtaskTableRow({
   className,
   isLast = false,
   isExpanded = false,
+  showConnector = false,
   status,
   parentStatus,
   ...props
@@ -176,9 +178,12 @@ export function SubtaskTableRow({
         'transition-all',
         'hover:bg-main/10',
         // Connector Branch: Horizontal line from vertical stem to subtask row
-        'before:absolute before:w-11 before:h-[1px]',
-        getStatusBgColor(parentStatus),
-        'before:-left-11 before:top-1/2 before:-translate-y-1/2',
+        showConnector && [
+          'relative',
+          'before:content-[""] before:absolute before:w-11 before:h-[1px]',
+          'before:-left-12 before:bottom-[-3px]',
+          getStatusBgColor(parentStatus),
+        ],
         className
       )}
       {...props}
