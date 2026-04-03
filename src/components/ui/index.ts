@@ -125,10 +125,5 @@ export {
   TableHead,
   TableHeader,
   TableRow,
-  SubtaskTableRow,
-  SubtaskContainer,
-  ExpandableTaskRow,
-  SubtaskTableHeader,
-  AddTaskRow,
 } from './table';
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';

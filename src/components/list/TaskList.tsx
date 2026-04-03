@@ -4,20 +4,15 @@ import { useGetTasksQuery } from '@/api';
 import type { TaskPriority, TaskStatus } from '@/types';
 import type { Task } from '@/types/task';
 import { cn, sortTasksByDeadline } from '@/lib';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
   ExpandableTaskRow,
   SubtaskContainer,
   SubtaskTableHeader,
   SubtaskTableRow,
   AddTaskRow,
-} from '@/components/ui';
-import { getStatusColor as getStatusBorderColors } from '../ui/table';
+  getStatusColor as getStatusBorderColors,
+} from '@/components/tasks';
 
 // Mock subtask type for testing UI hierarchy
 interface Subtask {
@@ -300,10 +295,7 @@ export default function TaskList() {
                               const isSingleSubtask = subtasks.length === 1;
 
                               return (
-                                <SubtaskContainer
-                                  isLast={subtasks.length === 1}
-                                  parentStatus={task.status}
-                                >
+                                <SubtaskContainer parentStatus={task.status}>
                                   {/* Subtask Table Headers */}
                                   <table className="w-full border-separate border-spacing-0 table-fixed">
                                     <SubtaskTableHeader parentStatus={task.status}>
