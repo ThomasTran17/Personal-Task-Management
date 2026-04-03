@@ -4,8 +4,8 @@ import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib';
 import type { TaskStatus } from '@/types/task';
 
-// Status-to-color mapping (DRY principle)
-const STATUS_COLORS: Record<
+// Status color variants using CVA - stored at module level (DRY)
+const statusColorMap: Record<
   TaskStatus | 'default',
   { borderRight: string; borderLeft: string; background: string }
 > = {
@@ -32,8 +32,12 @@ const STATUS_COLORS: Record<
 };
 
 // Helper function to get status colors based on task status
-export function getStatusColor(status: TaskStatus | undefined): typeof STATUS_COLORS.default {
-  return STATUS_COLORS[status as keyof typeof STATUS_COLORS] ?? STATUS_COLORS.default;
+export function getStatusColor(status: TaskStatus | undefined): {
+  borderRight: string;
+  borderLeft: string;
+  background: string;
+} {
+  return statusColorMap[status as keyof typeof statusColorMap] ?? statusColorMap.default;
 }
 
 // Shared Tailwind class patterns (DRY - reused across multiple components)
@@ -44,6 +48,68 @@ const TABLE_ROW_BORDER_CLASSES = 'border-t-1 border-table-border';
 const CELL_BASE_CLASSES =
   'ps-4 pe-4 align-middle truncate max-w-0 border-r-1 border-t-1 first:border-l-1 border-table-border';
 const CELL_CHECKBOX_ADJUSTMENT = '[&:has([role=checkbox])]:pe-0';
+
+// Custom hook for task input state management (extracted from AddTaskRow)
+interface UseTaskInputReturn {
+  isEditing: boolean;
+  inputValue: string;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+  handleClick: () => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSave: () => void;
+  handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+function useTaskInput(
+  onAddTask?: (title: string) => void,
+  onAddClick?: () => void
+): UseTaskInputReturn {
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState('');
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const handleClick = () => {
+    setIsEditing(true);
+    onAddClick?.();
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSave = () => {
+    if (inputValue.trim()) {
+      onAddTask?.(inputValue);
+      setInputValue('');
+      setIsEditing(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    } else if (e.key === 'Escape') {
+      setInputValue('');
+      setIsEditing(false);
+    }
+  };
+
+  React.useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
+
+  return {
+    isEditing,
+    inputValue,
+    inputRef,
+    handleClick,
+    handleInputChange,
+    handleSave,
+    handleKeyDown,
+  };
+}
 
 // Main Table Component - Inherits Neubrutalism tokens from index.css
 export function Table({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) {
@@ -313,41 +379,15 @@ export function AddTaskRow({
   children,
   ...props
 }: AddTaskRowProps) {
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [inputValue, setInputValue] = React.useState('');
-  const inputRef = React.useRef<HTMLInputElement>(null);
-
-  const handleClick = () => {
-    setIsEditing(true);
-    onAddClick?.();
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleSave = () => {
-    if (inputValue.trim()) {
-      onAddTask?.(inputValue);
-      setInputValue('');
-      setIsEditing(false);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSave();
-    } else if (e.key === 'Escape') {
-      setInputValue('');
-      setIsEditing(false);
-    }
-  };
-
-  React.useEffect(() => {
-    if (isEditing && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isEditing]);
+  const {
+    isEditing,
+    inputValue,
+    inputRef,
+    handleClick,
+    handleInputChange,
+    handleSave,
+    handleKeyDown,
+  } = useTaskInput(onAddTask, onAddClick);
 
   return (
     <tr
