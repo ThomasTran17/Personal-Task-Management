@@ -76,11 +76,15 @@ export const SubtaskContainer = React.memo(SubtaskContainerComponent);
 // Expandable Task Row with toggle UI
 // Primary Sidebar Implementation: border-s-[3px] creates prominent left border (Neubrutalism)
 // This row represents the parent task and can expand/collapse its subtask container
+// SLOT PATTERN: Strict type-safe API with explicit named slots
 interface ExpandableTaskRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   hasSubtasks?: boolean;
   isExpanded?: boolean;
   onToggleSubtasks?: (expanded: boolean) => void;
   status?: TaskStatus;
+  // Slot Pattern - Explicit named slots for type-safety
+  titleContent: React.ReactNode;
+  actionContent?: React.ReactNode;
 }
 
 function ExpandableTaskRowComponent({
@@ -89,54 +93,38 @@ function ExpandableTaskRowComponent({
   isExpanded = false,
   onToggleSubtasks,
   status,
-  children,
+  titleContent,
+  actionContent,
   ...props
 }: ExpandableTaskRowProps) {
-  const childrenArray = React.Children.toArray(children);
-  const firstChild = childrenArray[0];
-  const restChildren = childrenArray.slice(1);
-
-  const firstChildProps = React.isValidElement(firstChild)
-    ? (firstChild.props as React.HTMLAttributes<HTMLTableCellElement>)
-    : null;
-
   return (
-    <>
-      <tr
-        className={cn(
-          'border-y-1 border-table-border border-s-3 transition-all hover:bg-main/10 relative',
-          className
-        )}
-        {...props}
-      >
-        {/* First cell with expand button and content together */}
-        {firstChildProps && (
-          <TableCell
-            className={cn(
-              getStatusColor(status).borderLeft,
-              'first:border-l-3',
-              firstChildProps?.className
-            )}
-          >
-            <div className="flex items-center gap-2">
-              {hasSubtasks && (
-                <button
-                  onClick={() => onToggleSubtasks?.(!isExpanded)}
-                  className="inline-flex items-center justify-center w-6 h-6 flex-shrink-0 hover:bg-main/20 rounded-base transition-transform"
-                  style={{
-                    transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)',
-                  }}
-                >
-                  <ChevronDown className="size-4" />
-                </button>
-              )}
-              {firstChildProps?.children}
-            </div>
-          </TableCell>
-        )}
-        {restChildren}
-      </tr>
-    </>
+    <tr
+      className={cn(
+        'border-y-1 border-table-border border-s-3 transition-all hover:bg-main/10 relative',
+        className
+      )}
+      {...props}
+    >
+      {/* Title cell with expand button */}
+      <TableCell className={cn(getStatusColor(status).borderLeft, 'first:border-l-3')}>
+        <div className="flex items-center gap-2">
+          {hasSubtasks && (
+            <button
+              onClick={() => onToggleSubtasks?.(!isExpanded)}
+              className="inline-flex items-center justify-center w-6 h-6 flex-shrink-0 hover:bg-main/20 rounded-base transition-transform"
+              style={{
+                transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)',
+              }}
+            >
+              <ChevronDown className="size-4" />
+            </button>
+          )}
+          {titleContent}
+        </div>
+      </TableCell>
+      {/* Action cells slot */}
+      {actionContent}
+    </tr>
   );
 }
 

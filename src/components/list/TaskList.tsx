@@ -248,37 +248,44 @@ export default function TaskList() {
                         isExpanded={isExpanded}
                         onToggleSubtasks={() => toggleExpanded(task.id)}
                         status={task.status}
-                      >
-                        <TableCell className="font-semibold text-gray-900">{task.title}</TableCell>
-                        <TableCell className="text-gray-600 truncate">
-                          {task.description ?? '-'}
-                        </TableCell>
-                        <TableCell>
-                          <span
-                            className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(task.status)}`}
-                          >
-                            {task.status === 'TODO'
-                              ? 'TO DO'
-                              : task.status === 'IN_PROGRESS'
-                                ? 'Đang thực hiện'
-                                : 'Hoàn thành'}
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          <span
-                            className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(task.priority)}`}
-                          >
-                            {task.priority === 'HIGH'
-                              ? 'Cao'
-                              : task.priority === 'MEDIUM'
-                                ? 'Trung bình'
-                                : 'Thấp'}
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          {task.dueDate ? new Date(task.dueDate).toLocaleDateString('vi-VN') : '-'}
-                        </TableCell>
-                      </ExpandableTaskRow>
+                        titleContent={
+                          <span className="font-semibold text-gray-900">{task.title}</span>
+                        }
+                        actionContent={
+                          <>
+                            <TableCell className="text-gray-600 truncate">
+                              {task.description ?? '-'}
+                            </TableCell>
+                            <TableCell>
+                              <span
+                                className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(task.status)}`}
+                              >
+                                {task.status === 'TODO'
+                                  ? 'TO DO'
+                                  : task.status === 'IN_PROGRESS'
+                                    ? 'Đang thực hiện'
+                                    : 'Hoàn thành'}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <span
+                                className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(task.priority)}`}
+                              >
+                                {task.priority === 'HIGH'
+                                  ? 'Cao'
+                                  : task.priority === 'MEDIUM'
+                                    ? 'Trung bình'
+                                    : 'Thấp'}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              {task.dueDate
+                                ? new Date(task.dueDate).toLocaleDateString('vi-VN')
+                                : '-'}
+                            </TableCell>
+                          </>
+                        }
+                      />
 
                       {/* Subtasks Container - L-shaped visual connectors */}
                       {hasSubtasks && isExpanded && (
